@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { BotManagementComponent } from './dashboard-feature/bot-management/bot-management.component';
 
 const routes: Routes = [
-  { path: '', component: BotManagementComponent },
   { path: 'bot-management', component: BotManagementComponent }
 ];
 

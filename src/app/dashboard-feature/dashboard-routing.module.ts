@@ -12,6 +12,13 @@ const dashboardRoutes: Routes = [
       { path: '', component: BotTemplatesComponent, outlet: 'templates'},
       { path: '', component: BotManagementComponent, outlet: 'chatbots'}
     ]
+  },
+  { path: '',
+    component: DashboardComponent,
+    children: [
+      { path: '', component: BotTemplatesComponent, outlet: 'templates'},
+      { path: '', component: BotManagementComponent, outlet: 'chatbots'}
+    ]
   }
 
 ];
