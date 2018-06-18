@@ -2,26 +2,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardFeatureModule } from './dashboard-feature/dashboard-feature.module';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { BotConfigComponent } from './bot-config/bot-config.component';
-
+import { DashboardFeatureModule } from './dashboard-feature/dashboard-feature.module';
+import { BotConfigFeatureModule } from './bot-config-feature/bot-config-feature.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    BotConfigComponent
+    HeaderComponent
   ],
   imports: [
     CommonModule,
     BrowserModule,
     AppRoutingModule,
     DashboardFeatureModule,
+    BotConfigFeatureModule,
     HttpClientModule
   ],
   providers: [],
