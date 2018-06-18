@@ -4,20 +4,20 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { BotConfigComponent } from './bot-config/bot-config.component';
 import { DashboardFeatureModule } from './dashboard-feature/dashboard-feature.module';
+import { BotConfigFeatureModule } from './bot-config-feature/bot-config-feature.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    BotConfigComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DashboardFeatureModule
+    DashboardFeatureModule,
+    BotConfigFeatureModule
   ],
   providers: [],
   bootstrap: [AppComponent]
