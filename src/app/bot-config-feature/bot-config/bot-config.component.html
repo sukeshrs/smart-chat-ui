@@ -1,7 +1,7 @@
 <span id="togglebtntwo" class="toggle_btn expand-leftside hide" onclick="toggle_left(this);">
     <img src="../../assets/images/plus.png" class="plus">
   </span>
-  
+
   <div class="left-sidebar">
     <sidebar></sidebar>
   </div>
@@ -9,7 +9,7 @@
     <div class="row clearfix flex-column-reverse flex-md-row">
       <div class="col-sm-12 col-md-8">
         <div class="choose_topic_wrap">
-          <create-new-topic></create-new-topic>
+          <create-new-topic (addTopicEvent)='receiveTopic($event)'></create-new-topic>
         </div>
         <div class="hide create_topic_wrap">
           <add-topic-request></add-topic-request>
@@ -22,28 +22,42 @@
         </div>
       </div>
     </div>
-  
+
     <div class="row clearfix mt-2">
       <div class="col-sm-12">
         <div class="inside_box shadow_box chat_box" style="position: relative;">
           <a href="javascript:void(0);" class="toggle_btn" id="chatbtn" onclick="toggle_chat_area(this);">
             <img src="../../assets/images/minus.png" />
           </a>
-  
+
           <h2 class="section_heading"> Chat flow</h2>
-  
+
           <div class="drag_fields_block">
             <div class="clearfix">
               <button type="button" class="draggable_ele get_started_btn">
-                <img src="../../assets/images/plus.png">&nbsp;&nbsp;Get Started 
+                <img src="../../assets/images/plus.png">&nbsp;&nbsp;Get Started
               </button>
             </div>
+
+            <div data-id="{{ i }}" class="draggable_ele generate_box" [class.topic-min]="topicBoxesMin[i]" id="topic_box_{{ i }}" *ngFor="let topic of topicList; let i = index">
+                   <a href="javascript:void(0);" class="toggle_btn topic-toggle" (click)="toggleTopicPopup(i)"><img [src]="topicBoxesMin[i] ? '../../assets/images/minus.png' : '../../assets/images/plus.png'"></a>
+                   <span class="action-wrap">
+                     <a href="javascript:void(0);"><i class="fas fa-pencil-alt"></i></a>
+                     <span class="vert-hr"></span>
+                     <a href="javascript:void(0);" (click)="removeTopic(i)"><i class="fas fa-trash"></i></a>
+                   </span>
+                   <h4>{{ topic.name }}</h4>
+                   <button type="button" class="edit_btn">Edit Question</button>
+                   <button type="button" class="edit_btn">Edit Anwser</button>
+             </div>
+             <!-- <div class="path-line" id="line' + parseInt(box_len + 1) + '"></div> -->
           </div>
-  
+
+
           <div class="drag_fields_block drag_fields_block_duplicate hide">
             <div class="clearfix">
               <button type="button" class="draggable_ele get_started_btn">
-                <img src="../../assets/images/plus.png">&nbsp;&nbsp;Get Started 
+                <img src="../../assets/images/plus.png">&nbsp;&nbsp;Get Started
               </button>
             </div>
           </div>
@@ -51,4 +65,3 @@
       </div>
     </div>
   </div>
-  

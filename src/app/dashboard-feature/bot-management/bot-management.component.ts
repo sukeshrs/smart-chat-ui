@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BotConfigRespository } from "../../model/bot-config-repository.model";
+import { BotConfigRepository } from "../../model/bot-config-repository.model";
 import { DashboardService } from '../dashboard.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { DashboardService } from '../dashboard.service';
   styleUrls: ['./bot-management.component.scss']
 })
 export class BotManagementComponent implements OnInit {
-  public botConfigList : BotConfigRespository[];
+  public botConfigList : BotConfigRepository[];
 
   constructor(private dashboardService : DashboardService) { }
 
@@ -28,6 +28,18 @@ export class BotManagementComponent implements OnInit {
         //   entry.value = value;
         // });
         console.log(this.botConfigList);
+      },
+      error => console.log("ERROR ::" + error)
+    );
+  }
+
+  deleteBotConfig(botConfig: BotConfigRepository){
+    this.dashboardService.deleteBotConfig(botConfig).subscribe(
+      data => {
+        if (data >= 1){
+          this.getBotConfigList();
+        }
+        console.log("Deleted: " + JSON.stringify(data));
       },
       error => console.log("ERROR ::" + error)
     );
