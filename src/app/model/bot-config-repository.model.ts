@@ -1,6 +1,6 @@
 import { BotConfig } from "./bot-config.model";
 
-export interface BotConfigRespository {
+export interface BotConfigRepository {
   id?: string;
   botId: string;
   stepConfig: string;
