@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardFeatureModule } from './dashboard-feature/dashboard-feature.module';
 import { BotConfigFeatureModule } from './bot-config-feature/bot-config-feature.module';
+import { DraggableModule } from './draggable/draggable.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { BotConfigFeatureModule } from './bot-config-feature/bot-config-feature.
     AppRoutingModule,
     DashboardFeatureModule,
     BotConfigFeatureModule,
-    HttpClientModule
+    HttpClientModule,
+    DraggableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

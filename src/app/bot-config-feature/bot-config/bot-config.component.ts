@@ -28,4 +28,15 @@ export class BotConfigComponent implements OnInit {
     this.topicList.splice(i, 1);
   }
 
+  //Potential Events for Dragging Topic Boxes
+  onDraggingTopic(event: MouseEvent){
+    //console.log(`Moving Topic ${event.clientX} ${event.clientY}`);
+  }
+  onTopicDragStart(event: MouseEvent){
+    //console.log(`Clicked Topic ${event.clientX} ${event.clientY}`);
+  }
+  onTopicDragEnd(event: MouseEvent){
+    //console.log(`Dropped Topic ${event.clientX} ${event.clientY}`);
+  }
+
 }
