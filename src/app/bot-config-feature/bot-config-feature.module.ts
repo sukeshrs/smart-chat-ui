@@ -5,6 +5,7 @@ import { AddTopicRequestComponent } from './add-topic-request/add-topic-request.
 import { CreateNewTopicComponent } from './create-new-topic/create-new-topic.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NameYourBotComponent } from './name-your-bot/name-your-bot.component';
+import { DraggableModule } from '../draggable/draggable.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { NameYourBotComponent } from './name-your-bot/name-your-bot.component';
     NameYourBotComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    DraggableModule
   ],
   providers: [],
   bootstrap: []
