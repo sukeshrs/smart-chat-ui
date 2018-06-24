@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BotConfigRepository } from "../../model/bot-config-repository.model";
 import { DashboardService } from '../dashboard.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bot-management',
@@ -8,12 +9,13 @@ import { DashboardService } from '../dashboard.service';
   styleUrls: ['./bot-management.component.scss']
 })
 export class BotManagementComponent implements OnInit {
-  public botConfigList : BotConfigRepository[];
+  public botConfigList: BotConfigRepository[];
 
-  constructor(private dashboardService : DashboardService) { }
+  constructor(private dashboardService: DashboardService,
+    private router: Router) { }
 
   ngOnInit() {
-      this.getBotConfigList();
+    this.getBotConfigList();
   }
 
   getBotConfigList() {
@@ -33,10 +35,10 @@ export class BotManagementComponent implements OnInit {
     );
   }
 
-  deleteBotConfig(botConfig: BotConfigRepository){
+  deleteBotConfig(botConfig: BotConfigRepository) {
     this.dashboardService.deleteBotConfig(botConfig).subscribe(
       data => {
-        if (data >= 1){
+        if (data >= 1) {
           this.getBotConfigList();
         }
         console.log("Deleted: " + JSON.stringify(data));
@@ -45,4 +47,7 @@ export class BotManagementComponent implements OnInit {
     );
   }
 
+  submitModalData(event: any) {
+    this.router.navigate(['/bot-config']);
+  }
 }
