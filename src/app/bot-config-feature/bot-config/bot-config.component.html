@@ -40,14 +40,15 @@
             </div>
 
             <div data-id="{{ i }}" class="draggable_ele generate_box" ccMovable (dragStart)="onTopicDragStart($event)" (dragStop)="onTopicDragEnd($event)" (dragMove)="onDraggingTopic($event)" [class.topic-min]="topicBoxesMin[i]" id="topic_box_{{ i }}" *ngFor="let topic of topicList; let i = index">
-                   <a href="javascript:void(0);" class="toggle_btn topic-toggle" (click)="toggleTopicPopup(i)">
-                     <img [src]="topicBoxesMin[i] ? '../../assets/images/plus.png' : '../../assets/images/minus.png'">
-                   </a>
+
                    <span class="action-wrap">
-                     <a href="javascript:void(0);"><i class="fas fa-pencil-alt"></i></a>
+                     <a href="javascript:void(0);"><i class="fas fa-copy"></i></a>
                      <span class="vert-hr"></span>
                      <a href="javascript:void(0);" (click)="removeTopic(i)"><i class="fas fa-trash"></i></a>
                    </span>
+                   <a href="javascript:void(0);" class="toggle_btn topic-toggle" (click)="toggleTopicPopup(i)">
+                     <i [ngClass]="{'fa-plus': topicBoxesMin[i], 'fa-minus': !topicBoxesMin[i]}" class="fas"></i>
+                   </a>
                    <h4>{{ topic.name }}</h4>
                    <button type="button" class="edit_btn">Edit Question</button>
                    <button type="button" class="edit_btn">Edit Anwser</button>
