@@ -23,7 +23,7 @@ li{
 }
 
 .template-bot-wrap .container-fluid{
-    padding:48px 66px;
+    padding:100px 66px;
 }
 .navbar-expand-lg .navbar-nav .nav-link{
     padding-left: 2.5rem;
@@ -209,6 +209,7 @@ li{
     position: fixed;
     width: 100%;
     z-index: 99999;
+    border-bottom: .01em solid white;
   }
   .headerTitle{
     color: #656b6f;
