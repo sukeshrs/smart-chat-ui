@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BotConfigRepository } from "../../model/bot-config-repository.model";
+import { BotConfig } from "../../model/bot-config.model";
+import { Name } from "../../model/name.model";
 import { DashboardService } from '../dashboard.service';
 import { Router } from '@angular/router';
 
@@ -10,12 +12,18 @@ import { Router } from '@angular/router';
 })
 export class BotManagementComponent implements OnInit {
   public botConfigList: BotConfigRepository[];
+  private name: Name;
+  public botDetails : BotConfigRepository;
 
   constructor(private dashboardService: DashboardService,
     private router: Router) { }
 
   ngOnInit() {
     this.getBotConfigList();
+    this.name = {
+      botName: '',
+      botDesc: ''
+    };
   }
 
   getBotConfigList() {
@@ -48,6 +56,24 @@ export class BotManagementComponent implements OnInit {
   }
 
   submitModalData(event: any) {
+    console.log(this.name);
+    let botConfigRepo: BotConfigRepository;
+    let value: BotConfig;
+    value = { name: this.name };
+    //the bot id mentioned is not eally used , since it is created on the database when data is inserted
+    botConfigRepo = {
+      botId: '1',
+      stepConfig: 'name',
+      value: value,
+      status: 'N'
+    };
+
+    this.dashboardService.startBotCreation(botConfigRepo).subscribe(
+      data => {
+        this.botDetails = data;
+      },
+      error => console.log("ERROR ::" + error)
+    );
     this.router.navigate(['/bot-config']);
   }
 }

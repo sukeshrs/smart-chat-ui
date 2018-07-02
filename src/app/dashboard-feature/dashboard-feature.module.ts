@@ -5,6 +5,7 @@ import { BotManagementComponent } from './bot-management/bot-management.componen
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BotTemplatesComponent } from './bot-templates/bot-templates.component';
 import { DashboardService } from './dashboard.service';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DashboardService } from './dashboard.service';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    FormsModule
   ],
   providers: [
     DashboardService
