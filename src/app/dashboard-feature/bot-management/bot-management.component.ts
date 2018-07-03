@@ -22,7 +22,7 @@ export class BotManagementComponent implements OnInit {
     this.getBotConfigList();
     this.name = {
       botName: '',
-      botDesc: ''
+      botDescription: ''
     };
   }
 
