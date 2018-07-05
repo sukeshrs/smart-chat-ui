@@ -8,6 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { DashboardFeatureModule } from './dashboard-feature/dashboard-feature.module';
 import { BotConfigFeatureModule } from './bot-config-feature/bot-config-feature.module';
 import { DraggableModule } from './draggable/draggable.module';
+import { SmartChatModel } from './model/smart-chat-model.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { DraggableModule } from './draggable/draggable.module';
     HttpClientModule,
     DraggableModule
   ],
-  providers: [],
+  providers: [SmartChatModel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
