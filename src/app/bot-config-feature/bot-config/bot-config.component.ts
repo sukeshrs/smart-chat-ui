@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Topic } from '../../model/topic.model'
+import { Topic } from '../../model/topic.model';
+import { ActivatedRoute } from '@angular/router';
+import { SmartChatModel } from "../../model/smart-chat-model.service";
+import { BotConfigRepository } from "../../model/bot-config-repository.model";
+
 @Component({
   selector: 'app-bot-config',
   templateUrl: './bot-config.component.html',
@@ -7,9 +11,20 @@ import { Topic } from '../../model/topic.model'
 })
 export class BotConfigComponent implements OnInit {
 
-  public topicList : Topic[] = [];
+  botConfig: BotConfigRepository;
+  topicList : Topic[];
   topicBoxesMin: boolean[] = [];
-  constructor() { }
+
+  constructor(private smartChatModel: SmartChatModel) {
+
+    if (smartChatModel.currentBot != null && smartChatModel.currentBot.value.topics == null){
+      smartChatModel.currentBot.value.topics = []
+    }
+
+    this.botConfig = smartChatModel.currentBot;
+    this.topicList = smartChatModel.currentBot.value.topics;
+    console.log(this.botConfig);
+  }
 
   ngOnInit() {
   }
@@ -17,7 +32,7 @@ export class BotConfigComponent implements OnInit {
   receiveTopic(newTopic) {
     this.topicList.push(newTopic);
     this.topicBoxesMin.push(false);
-    console.log(this.topicList);
+    console.log(this.botConfig);
   }
 
   toggleTopicPopup(i){

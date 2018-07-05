@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BotConfigRepository } from "../../model/bot-config-repository.model";
+import { SmartChatModel } from "../../model/smart-chat-model.service";
 import { BotConfig } from "../../model/bot-config.model";
 import { Name } from "../../model/name.model";
 import { DashboardService } from '../dashboard.service';
@@ -11,11 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./bot-management.component.scss']
 })
 export class BotManagementComponent implements OnInit {
-  public botConfigList: BotConfigRepository[];
   private name: Name;
   public botDetails : BotConfigRepository;
 
-  constructor(private dashboardService: DashboardService,
+  constructor(
+    private dashboardService: DashboardService,
+    private smartChatModel: SmartChatModel,
     private router: Router) { }
 
   ngOnInit() {
@@ -29,7 +31,7 @@ export class BotManagementComponent implements OnInit {
   getBotConfigList() {
     this.dashboardService.getBotConfigList().subscribe(
       data => {
-        this.botConfigList = data;
+        this.smartChatModel.botConfigList = data;
         // this.botConfigList.forEach(function (entry) {
         //   console.log("entry" + entry);
         //   let string = JSON.stringify(entry.value);
@@ -37,10 +39,15 @@ export class BotManagementComponent implements OnInit {
         //   let value = JSON.parse(temp);
         //   entry.value = value;
         // });
-        console.log(this.botConfigList);
+        console.log(this.smartChatModel.botConfigList);
       },
       error => console.log("ERROR ::" + error)
     );
+  }
+
+  editBotConfig(botConfig: BotConfigRepository){
+    this.smartChatModel.currentBot = botConfig;
+    this.router.navigate(['/bot-config', botConfig.value.name.botName]);
   }
 
   deleteBotConfig(botConfig: BotConfigRepository) {
@@ -59,7 +66,7 @@ export class BotManagementComponent implements OnInit {
     console.log(this.name);
     let botConfigRepo: BotConfigRepository;
     let value: BotConfig;
-    value = { name: this.name };
+    value = { name: this.name, topics: [] };
     //the bot id mentioned is not eally used , since it is created on the database when data is inserted
     botConfigRepo = {
       botId: '1',
@@ -74,6 +81,7 @@ export class BotManagementComponent implements OnInit {
       },
       error => console.log("ERROR ::" + error)
     );
-    this.router.navigate(['/bot-config']);
+    this.smartChatModel.currentBot = this.botDetails;
+    this.router.navigate(['/bot-config', this.name.botName]);
   }
 }

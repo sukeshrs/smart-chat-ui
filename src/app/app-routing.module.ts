@@ -7,7 +7,7 @@ import { BotConfigComponent } from './bot-config-feature/bot-config/bot-config.c
 const routes: Routes = [
   { path: '', component: BotManagementComponent },
   { path: 'bot-management', component: BotManagementComponent },
-  { path: 'bot-config', component: BotConfigComponent }
+  { path: 'bot-config/:botId', component: BotConfigComponent }
 ];
 
 @NgModule({

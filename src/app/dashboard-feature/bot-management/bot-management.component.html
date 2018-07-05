@@ -31,7 +31,7 @@
 						<span class="btn">Create a new bot</span>
 					</a>
 				</li>
-				<li class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 custom_col" *ngFor="let botConfig of botConfigList">
+				<li class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 custom_col" *ngFor="let botConfig of smartChatModel.botConfigList">
 					<div class="block published h-100 rounded bot-detail">
 						<div class="block-image dark-blue-bg">
 							<div class="chatbox-icon text-left">
@@ -43,15 +43,15 @@
 							</div>
 						</div>
 						<div class="block-detail">
-							<div class="cardTitle  text-left">my test bot</div>
+							<div class="cardTitle  text-left">{{botConfig.value.name.botName}}</div>
 							<div class="dropdownn block-toggle-button">
 								<a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
 									<i class="fas fa-ellipsis-v"></i>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="#">Edit</a>
+									<a (click)="editBotConfig(botConfig)" class="dropdown-item" >Edit</a>
 									<a class="dropdown-item" href="#">Copy</a>
-									<a (click)="deleteBotConfig(botConfig)" class="dropdown-item" href="#">Delete</a>
+									<a (click)="deleteBotConfig(botConfig)" class="dropdown-item" >Delete</a>
 								</div>
 							</div>
 						</div>

@@ -1,4 +1,6 @@
 import { Name } from './name.model';
+import { Topic } from './topic.model';
 export interface BotConfig {
-    name: Name;
+    topics: Topic[],
+    name: Name
 }
