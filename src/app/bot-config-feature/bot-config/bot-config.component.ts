@@ -12,10 +12,15 @@ import { BotConfigRepository } from "../../model/bot-config-repository.model";
 export class BotConfigComponent implements OnInit {
 
   botConfig: BotConfigRepository;
-  topicList : Topic[] = [];
+  topicList : Topic[];
   topicBoxesMin: boolean[] = [];
 
   constructor(private smartChatModel: SmartChatModel) {
+
+    if (smartChatModel.currentBot != null && smartChatModel.currentBot.value.topics == null){
+      smartChatModel.currentBot.value.topics = []
+    }
+
     this.botConfig = smartChatModel.currentBot;
     this.topicList = smartChatModel.currentBot.value.topics;
     console.log(this.botConfig);
@@ -27,7 +32,7 @@ export class BotConfigComponent implements OnInit {
   receiveTopic(newTopic) {
     this.topicList.push(newTopic);
     this.topicBoxesMin.push(false);
-    console.log(this.topicList);
+    console.log(this.botConfig);
   }
 
   toggleTopicPopup(i){
