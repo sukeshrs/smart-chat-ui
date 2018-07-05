@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Topic } from '../../model/topic.model'
+import { SmartChatModelService } from '../../providers/smart-chat-model.service';
+import { BotConfigRepository } from '../../model/bot-config-repository.model';
 @Component({
   selector: 'app-bot-config',
   templateUrl: './bot-config.component.html',
@@ -9,9 +11,12 @@ export class BotConfigComponent implements OnInit {
 
   public topicList : Topic[] = [];
   topicBoxesMin: boolean[] = [];
-  constructor() { }
+  botConfig : BotConfigRepository;
+  constructor( private smartChatModelService: SmartChatModelService) { }
 
   ngOnInit() {
+    this.botConfig = this.smartChatModelService.currentBot;
+    console.log("this.botConfig " + JSON.stringify(this.botConfig));
   }
 
   receiveTopic(newTopic) {

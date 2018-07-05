@@ -1,27 +1,27 @@
 <div class="started_box">
     <h2 class="section_heading">Get Started/Edit Topic Request</h2>
     <div class="inside_box shadow_box">
+        topic.name : {{topic.name}}
+        question : {{question}}
       <div class="form_control clearfix">
         <label>Topic Name</label>
-        <input type="text" class="round_field">
-        <button class="arrow"><img src="../../assets/images/arrow-right.png"></button>
+        <input type="text" class="round_field" [(ngModel)]="topic.name">
+        <button class="arrow" type="button" (click) = "addTopic()"><img src="../../assets/images/arrow-right.png"></button>
       </div>
       <div class="form_control clearfix">
         <label>Sample Request</label>
-        <input type="text" class="round_field">
-        <button class="arrow"><img src="../../assets/images/arrow-right.png" /></button>
+        <input type="text" class="round_field" [(ngModel)]="question">
+        <button class="arrow" type="button" (click) = "addQuestion()"><img src="../../assets/images/arrow-right.png" /></button>
       </div>
   
       <div class="create_fields_block">
         <div class="clearfix">
-          <div class="element_wrapper">
-            <div class="element">Get Started</div>
-            <div class="delete_option"><img src="../../assets/images/delete.png" /></div>
+          <div *ngFor="let question of topic.questions; let i = index">
+          <div class="element_wrapper"  (click)="removeQuestion(i)">
+            <div class="element">{{question}}</div>
+            <div class="delete_option"><i class="fa fa-trash" aria-hidden="true"></i></div>
           </div>
-          <div class="element_wrapper">
-            <div class="element">What do you do?</div>
-            <div class="delete_option"><img src="../../assets/images/delete.png" /></div>
-          </div>
+        </div>
         </div>
       </div>
       <div class="btn_block">

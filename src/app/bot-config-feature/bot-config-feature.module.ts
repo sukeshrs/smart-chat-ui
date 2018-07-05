@@ -6,6 +6,8 @@ import { CreateNewTopicComponent } from './create-new-topic/create-new-topic.com
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NameYourBotComponent } from './name-your-bot/name-your-bot.component';
 import { DraggableModule } from '../draggable/draggable.module';
+import { BotConfigRoutingModule } from './bot-config-routing.module';
+import { FormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { DraggableModule } from '../draggable/draggable.module';
   ],
   imports: [
     CommonModule,
-    DraggableModule
+    DraggableModule,
+    BotConfigRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: []

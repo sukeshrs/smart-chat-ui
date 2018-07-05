@@ -5,16 +5,19 @@
   <div class="left-sidebar">
     <sidebar></sidebar>
   </div>
+
+
   <div class="right-container container-fluid">
     <div class="row clearfix flex-column-reverse flex-md-row">
       <div class="col-sm-12 col-md-8">
-        <div class="choose_topic_wrap">
+        <div class="choose_topic_wrap" *ngIf="!botConfig.stepConfig || botConfig.stepConfig ==='name'">
           <create-new-topic (addTopicEvent)='receiveTopic($event)'></create-new-topic>
         </div>
-        <div class="hide create_topic_wrap">
+        <div class="create_topic_wrap" *ngIf="botConfig.stepConfig ==='addTopic'">
           <add-topic-request></add-topic-request>
         </div>
         </div>
+        
       <div class="col-sm-12 col-md-4 live_chat">
         <h2 class="section_heading">Live Chat</h2>
         <div class="inside_box shadow_box">
@@ -22,7 +25,7 @@
         </div>
       </div>
     </div>
-
+    botConfig.stepConfig : {{botConfig.stepConfig}}
     <div class="row clearfix mt-2">
       <div class="col-sm-12">
         <div class="inside_box shadow_box chat_box" style="position: relative;">
