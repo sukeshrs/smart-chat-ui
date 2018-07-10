@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Topic } from '../../model/topic.model';
 import * as $ from 'jquery';
+import { SmartChatModel } from "../../model/smart-chat-model.service";
 
 @Component({
   selector: 'create-new-topic',
@@ -9,7 +10,7 @@ import * as $ from 'jquery';
 })
 export class CreateNewTopicComponent implements OnInit {
 
-  constructor() { }
+  constructor(private smartChatModel: SmartChatModel) { }
 
   ngOnInit() {
   }
@@ -26,5 +27,9 @@ export class CreateNewTopicComponent implements OnInit {
     };
 
     this.addTopicEvent.emit(topic);
+  }
+
+  public updateBotConfig(){
+    this.smartChatModel.currentBot.stepConfig='topicName';
   }
 }

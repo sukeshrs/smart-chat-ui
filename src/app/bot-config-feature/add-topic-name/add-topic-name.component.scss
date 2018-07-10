@@ -1,0 +1,20 @@
+.topic-name {
+    &.inside_box {
+        &.shadow_box{
+        padding-top: 5em;
+        padding-bottom:5em;
+     }
+    }
+
+    .btn_block {
+        margin-bottom : -3em;
+    }
+}
+
+stretch-element {
+    padding-top: 5em;
+    padding-bottom:5em;
+}
+
+
+

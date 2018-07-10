@@ -5,6 +5,7 @@ import { BotConfigRepository } from "./bot-config-repository.model";
 export class SmartChatModel {
   botConfigList: BotConfigRepository[];
   currentBot: BotConfigRepository;
+  currentTopicName: string;
 
   constructor() { }
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Topic } from '../../model/topic.model';
+import { SmartChatModel } from "../../model/smart-chat-model.service";
 
 @Component({
   selector: 'add-topic-request',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddTopicRequestComponent implements OnInit {
 
-  constructor() { }
+  topic : Topic;
+  question : string;
+
+  constructor(private smartChatModel: SmartChatModel) { }
 
   ngOnInit() {
+    let topics = this.smartChatModel.currentBot.value.topics;
+    let currentTopicName = this.smartChatModel.currentTopicName;
+  }
+
+  public addTopic(){
+   // this.smartChatModel.currentBot.value.topic = this.topic;
   }
 
 }
