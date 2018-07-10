@@ -42,6 +42,19 @@
 	letter-spacing: 2px;
 	text-transform: uppercase;
 }
+
+.btn_block {
+	a{
+		&.btn-primary {
+			color: #23bdf0;
+
+		}
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
 .btn-primary:hover, .btn-primary:active, .btn-primary:focus{
 	background: #fff;
 	border-color: #fff;
@@ -75,3 +88,4 @@
 	padding: 5px 0;
 
 }
+

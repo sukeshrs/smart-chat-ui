@@ -54,4 +54,11 @@ export class BotConfigComponent implements OnInit {
     //console.log(`Dropped Topic ${event.clientX} ${event.clientY}`);
   }
 
+  gotoCreateTopic(){
+    this.smartChatModel.currentBot.stepConfig='name';
+  }
+
+  gotoTopicName(){
+    this.smartChatModel.currentBot.stepConfig='topicName';
+  }
 }
