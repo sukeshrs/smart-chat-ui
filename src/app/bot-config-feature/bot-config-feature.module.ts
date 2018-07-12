@@ -9,6 +9,7 @@ import { DraggableModule } from '../draggable/draggable.module';
 import { BotConfigService } from './bot-config.service';
 import { AddTopicNameComponent } from './add-topic-name/add-topic-name.component';
 import { FormsModule }   from '@angular/forms';
+import { EditResponseComponent } from './edit-response/edit-response.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormsModule }   from '@angular/forms';
     SidebarComponent,
     NameYourBotComponent,
     AddTopicNameComponent,
+    EditResponseComponent,
   ],
   imports: [
     CommonModule,

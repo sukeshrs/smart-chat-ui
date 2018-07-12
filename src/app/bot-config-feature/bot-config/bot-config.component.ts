@@ -61,4 +61,8 @@ export class BotConfigComponent implements OnInit {
   gotoTopicName(){
     this.smartChatModel.currentBot.stepConfig='topicName';
   }
+
+  gotoQuestions(){
+    this.smartChatModel.currentBot.stepConfig='addTopic';
+  }
 }

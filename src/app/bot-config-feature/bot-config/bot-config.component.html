@@ -9,6 +9,8 @@
   <div class="row clearfix flex-column-reverse flex-md-row">
 
     <div class="col-sm-12 col-md-8">
+
+      <!--Section to show the choose topics landing page -->
       <div class="choose_topic_wrap" *ngIf="!botConfig.stepConfig || botConfig.stepConfig ==='name'">
         <nav aria-label="breadcrumb" class="topic-navigation">
           <ol class="breadcrumb">
@@ -17,6 +19,21 @@
         </nav>
         <create-new-topic (addTopicEvent)='receiveTopic($event)'></create-new-topic>
       </div>
+
+      <!--Section to show the topic naming page -->
+      <div class="create_topic_wrap" *ngIf="botConfig.stepConfig ==='topicName'">
+        <nav aria-label="breadcrumb" class="topic-navigation">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a (click)="gotoCreateTopic()" href="javascript:void()">Create Topic</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Add Questions</li>
+          </ol>
+        </nav>
+        <add-topic-name></add-topic-name>
+      </div>
+
+      <!--Section to show the add questions page -->
       <div class="create_topic_wrap" *ngIf="botConfig.stepConfig ==='addTopic'">
         <nav aria-label="breadcrumb" class="topic-navigation">
           <ol class="breadcrumb">
@@ -24,7 +41,7 @@
               <a (click)="gotoCreateTopic()" href="javascript:void()">Create Topic</a>
             </li>
             <li class="breadcrumb-item">
-                <a (click)="gotoCreateTopic()" href="javascript:void()">Topic Name</a>
+              <a (click)="gotoTopicName()" href="javascript:void()">Topic Name</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Add Questions</li>
           </ol>
@@ -32,17 +49,25 @@
         <add-topic-request></add-topic-request>
       </div>
 
-      <div class="create_topic_wrap" *ngIf="botConfig.stepConfig ==='topicName'">
-          <nav aria-label="breadcrumb" class="topic-navigation">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a (click)="gotoCreateTopic()" href="javascript:void()">Create Topic</a>
+      <!--Section to show the Edit Response  page -->
+      <div class="create_topic_wrap" *ngIf="botConfig.stepConfig ==='editResponse'">
+        <nav aria-label="breadcrumb" class="topic-navigation">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a (click)="gotoCreateTopic()" href="javascript:void()">Create Topic</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a (click)="gotoTopicName()" href="javascript:void()">Topic Name</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a (click)="gotoQuestions()" href="javascript:void()">Edit Questions</a>
               </li>
-              <li class="breadcrumb-item active" aria-current="page">Add Questions</li>
-            </ol>
-          </nav>
-          <add-topic-name></add-topic-name>
-        </div>
+            <li class="breadcrumb-item active" aria-current="page">Edit Topic</li>
+          </ol>
+        </nav>
+        <edit-response></edit-response>
+      </div>
+
 
     </div>
     <div class="col-sm-12 col-md-4 live_chat">
@@ -63,11 +88,6 @@
         <h2 class="section_heading">Your Topics</h2>
 
         <div class="drag_fields_block" ccMovableArea>
-          <div class="clearfix" ccMovable [movableReset]=t rue>
-            <button type="button" class="draggable_ele get_started_btn">
-              <img src="../../assets/images/plus.png">&nbsp;&nbsp;Get Started
-            </button>
-          </div>
 
           <div data-id="{{ i }}" class="draggable_ele generate_box" ccMovable (dragStart)="onTopicDragStart($event)" (dragStop)="onTopicDragEnd($event)"
             (dragMove)="onDraggingTopic($event)" [class.topic-min]="topicBoxesMin[i]" id="topic_box_{{ i }}" *ngFor="let topic of topicList; let i = index">
