@@ -11,22 +11,23 @@ import { Topic } from '../../model/topic.model';
 export class AddTopicNameComponent implements OnInit {
 
   botConfig: BotConfigRepository;
-  topic : Topic;
+  topic: Topic;
   constructor(private smartChatModel: SmartChatModel) { }
 
   ngOnInit() {
-    this.topic = {name :''};
+    //TODO : retreive the topic from the topic array of current bot
+    this.topic = { name: '' };
   }
 
-  gotoCreateTopic(){
-    this.smartChatModel.currentBot.stepConfig='name';
+  gotoCreateTopic() {
+    this.smartChatModel.currentBot.stepConfig = 'name';
   }
 
-  goToQuestions(){
+  goToQuestions() {
     this.smartChatModel.currentTopicName = this.topic.name;
     //TODO : update the topic and push
     this.smartChatModel.currentBot.value.topics.push(this.topic);
-    this.smartChatModel.currentBot.stepConfig='addTopic';
+    this.smartChatModel.currentBot.stepConfig = 'addTopic';
   }
 
 }

@@ -1015,3 +1015,27 @@ New Topic section
 .ibox2{
     background-color: yellow;
 }
+
+
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    rgb(216, 210, 216);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:     rgb(216, 210, 216);
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:     rgb(216, 210, 216);
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:      rgb(216, 210, 216);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:      rgb(216, 210, 216);
+}
+
+::placeholder { /* Most modern browsers support this now. */
+   color:     rgb(216, 210, 216);
+}
