@@ -3,9 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BotManagementComponent } from './dashboard-feature/bot-management/bot-management.component';
 import { BotConfigComponent } from './bot-config-feature/bot-config/bot-config.component';
+import { DashboardComponent } from './dashboard-feature/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', component: BotManagementComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'bot-management', component: BotManagementComponent },
   { path: 'bot-config/:botId', component: BotConfigComponent }
 ];
