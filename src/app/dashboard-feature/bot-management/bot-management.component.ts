@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./bot-management.component.scss']
 })
 export class BotManagementComponent implements OnInit {
-  private name: Name;
+  public name: Name;
   public botDetails : BotConfigRepository;
 
   constructor(
     private dashboardService: DashboardService,
-    private smartChatModel: SmartChatModel,
+    public smartChatModel: SmartChatModel,
     private router: Router) { }
 
   ngOnInit() {
