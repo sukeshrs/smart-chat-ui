@@ -10,6 +10,10 @@ import { BotConfigService } from './bot-config.service';
 import { AddTopicNameComponent } from './add-topic-name/add-topic-name.component';
 import { FormsModule }   from '@angular/forms';
 import { EditResponseComponent } from './edit-response/edit-response.component';
+import { ResponseGenericTypeComponent } from './response-generic-type/response-generic-type.component';
+import { ResponseButtonTypeComponent } from './response-button-type/response-button-type.component';
+import { ResponseMediaTypeComponent } from './response-media-type/response-media-type.component';
+import { ResponseTextTypeComponent } from './response-text-type/response-text-type.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,10 @@ import { EditResponseComponent } from './edit-response/edit-response.component';
     NameYourBotComponent,
     AddTopicNameComponent,
     EditResponseComponent,
+    ResponseGenericTypeComponent,
+    ResponseButtonTypeComponent,
+    ResponseMediaTypeComponent,
+    ResponseTextTypeComponent,
   ],
   imports: [
     CommonModule,
