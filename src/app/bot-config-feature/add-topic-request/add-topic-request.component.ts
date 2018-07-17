@@ -15,6 +15,7 @@ export class AddTopicRequestComponent implements OnInit {
   constructor(private smartChatModel: SmartChatModel) { }
 
   ngOnInit() {
+    window.scroll(0,0);
     let topics = this.smartChatModel.currentBot.value.topics;
     let currentTopicName = this.smartChatModel.currentTopicName;
     let currentTopicIndex = this.retreiveCurrentTopic(currentTopicName, topics);

@@ -1,15 +1,23 @@
 <div class="started_box">
   <!-- <h2 class="section_heading">Get Started/Edit Topic Request</h2> -->
   <div class="inside_box shadow_box">
-    <!-- <div class="form_control clearfix">
-      <label>Sample Question</label>
-      <input type="text" class="round_field" [(ngModel)]="question">
-      <button class="arrow" type="button" (click)="addQuestion()">
-        <img src="assets/images/arrow-right.png" />
-      </button>
+    <div class="form_control clearfix">
+      <label>Response Type</label>
+      <select class="round_field" [(ngModel)]="reponseType">
+        <option selected>Please Select</option>
+        <option value="text">Text</option>
+        <option value="generic">Generic</option>
+        <option value="media">Media</option>
+        <option value="button">Button</option>
+      </select>
     </div>
 
-    <div class="create_fields_block">
+    <div *ngIf="reponseType==='text'">
+      <response-text-type [topic]="topic"></response-text-type>
+    </div>
+
+
+    <!--    <div class="create_fields_block">
       <div class="clearfix">
         <div *ngFor="let question of topic.questions; let i = index">
           <div class="element_wrapper">
@@ -27,5 +35,5 @@
       <img src="assets/images/arrow-right.png" />
     </button>
   </div> -->
-</div>
+  </div>
 </div>
