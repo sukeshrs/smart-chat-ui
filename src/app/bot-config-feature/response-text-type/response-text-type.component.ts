@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { Topic } from '../../model/topic.model';
+import { SmartChatModel } from "../../model/smart-chat-model.service";
 
 @Component({
   selector: 'response-text-type',
@@ -10,11 +11,11 @@ import { Topic } from '../../model/topic.model';
 export class ResponseTextTypeComponent implements OnInit {
 
   @Input()
-  public topic : Topic;
-  constructor() { }
+  public topic : any;
+  constructor(private smartChatModel: SmartChatModel) { }
 
   ngOnInit() {
-    if(!this.topic.answers[0]){
+    if(!this.topic.answers){
       this.topic.answers=[''];
     }
   }

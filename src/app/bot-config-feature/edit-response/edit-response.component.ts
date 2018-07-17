@@ -22,6 +22,7 @@ export class EditResponseComponent implements OnInit {
     let currentTopicName = this.smartChatModel.currentTopicName;
     let currentTopicIndex = this.retreiveCurrentTopic(currentTopicName, topics);
     this.topic = topics[currentTopicIndex];
+    this.reponseType = 'text';
     console.log(JSON.stringify(this.topic));
   }
 
