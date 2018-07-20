@@ -7,8 +7,7 @@ import { DashboardComponent } from './dashboard-feature/dashboard/dashboard.comp
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'bot-management', component: BotManagementComponent },
-  { path: 'bot-config/:botId', component: BotConfigComponent }
+  { path: 'bot-management', component: BotManagementComponent }
 ];
 
 @NgModule({

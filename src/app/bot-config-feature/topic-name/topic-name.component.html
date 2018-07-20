@@ -1,0 +1,18 @@
+<div class="started_box">
+    <!-- <h2 class="section_heading">Get Started/Edit Topic Request</h2> -->
+    <div class="topic-name inside_box shadow_box">
+      <div class="form_control clearfix">
+        <label>Topic Name</label>
+        <input type="text" class="round_field" placeholder="Enter Topic Name" [(ngModel)]="topic.name" (keydown.enter)="gotoTopicQuestions()">
+        <button (click)="gotoTopicQuestions()" class="arrow"><img src="assets/images/arrow-right.png"></button>
+      </div>
+      <div class="btn_block">
+        <button type="button" class="custom_btn" (click)="gotoNewTopic()">
+              Back
+        </button>
+        <button type="button" class="custom_btn" (click)="gotoTopicQuestions()">
+          Choose Questions
+        </button>
+      </div>
+    </div>
+  </div>
