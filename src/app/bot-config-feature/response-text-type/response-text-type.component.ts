@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
 import { Topic } from '../../model/topic.model';
 import { Response } from '../../model/response.model';
 import { SmartChatModel } from "../../model/smart-chat-model.service";
@@ -11,6 +11,7 @@ import { SmartChatModel } from "../../model/smart-chat-model.service";
 })
 export class ResponseTextTypeComponent implements OnInit {
 
+  @Output() clickSubmitArrow = new EventEmitter();
   @Input()
   public topic: Topic;
   public text: string;
@@ -33,5 +34,9 @@ export class ResponseTextTypeComponent implements OnInit {
       };
       this.topic.answers.push(this.textResponse);
     }
+  }
+
+  addAnswer() {
+    this.clickSubmitArrow.emit();
   }
 }

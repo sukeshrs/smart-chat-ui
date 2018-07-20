@@ -1,0 +1,7 @@
+<nav aria-label="breadcrumb" class="topic-navigation">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item" [ngClass]="{ 'active' : isLast }" [attr.aria-current]="isLast ? 'page': null" *ngFor="let breadcrumb of breadcrumbs; last as isLast">
+      <a (click)="navigateBreadCrumb(breadcrumb)" href="javascript:void()">{{breadcrumb}}</a>
+    </li>
+  </ol>
+</nav>

@@ -47,7 +47,8 @@ export class BotManagementComponent implements OnInit {
 
   editBotConfig(botConfig: BotConfigRepository){
     this.smartChatModel.currentBot = botConfig;
-    this.router.navigate(['/bot-config', botConfig.value.name.botName]);
+    let botName = botConfig.value.name.botName.split(' ').join('-');
+    this.router.navigate(['/bot-config', botName]);
   }
 
   deleteBotConfig(botConfig: BotConfigRepository) {

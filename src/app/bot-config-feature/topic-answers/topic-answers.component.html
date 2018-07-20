@@ -2,14 +2,22 @@
   <!-- <h2 class="section_heading">Get Started/Edit Topic Request</h2> -->
   <div class="inside_box shadow_box">
     <div class="form_control clearfix">
-      <label>Sample Question</label>
-      <input type="text" class="round_field" placeholder="enter a question" [(ngModel)]="question">
-      <button class="arrow" type="button" (click)="addQuestion()">
-        <img src="assets/images/arrow-right.png" />
-      </button>
+      <label>Response Type</label>
+      <select class="round_field" [(ngModel)]="reponseType">
+        <option selected>Please Select</option>
+        <option value="text">Text</option>
+        <option value="generic">Generic</option>
+        <option value="media">Media</option>
+        <option value="button">Button</option>
+      </select>
     </div>
 
-    <div class="create_fields_block">
+    <div *ngIf="reponseType==='text'">
+      <response-text-type (clickSubmitArrow)="addAnswer()" [topic]="topic"></response-text-type>
+    </div>
+
+
+    <!--    <div class="create_fields_block">
       <div class="clearfix">
         <div *ngFor="let question of topic.questions; let i = index">
           <div class="element_wrapper">
@@ -22,10 +30,10 @@
     </div>
   </div>
   <div class="btn_block">
-    <button type="button" class="custom_btn"  (click) = "gotToEditResponse()">
+    <button type="button" class="custom_btn">
       Edit Response&nbsp;&nbsp;&nbsp;
       <img src="assets/images/arrow-right.png" />
     </button>
+  </div> -->
   </div>
-</div>
 </div>
