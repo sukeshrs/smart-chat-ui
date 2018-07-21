@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BotConfigService } from '../bot-config.service';
 import { SmartChatModel } from "../../model/smart-chat-model.service";
 import { BotConfigRepository } from '../../model/bot-config-repository.model';
@@ -12,7 +13,9 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private botConfigService: BotConfigService,
-    private smartChatModel: SmartChatModel) { }
+    private smartChatModel: SmartChatModel,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -35,6 +38,11 @@ export class SidebarComponent implements OnInit {
     );
   }
 
+  gotoCreateNewTopic(){
+    this.smartChatModel.currentBot.stepConfig='nameTopic';
+    this.smartChatModel.currentTopic=null;
+    this.router.navigate(['./topic-name'], { relativeTo: this.route });
+  }
 
   constructKycModel(botConfigRepo : BotConfigRepository) {
 

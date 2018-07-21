@@ -22,9 +22,7 @@ export class TopicAnswersComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    //let topics = this.smartChatModel.currentBot.value.topics;
-    //let currentTopicName = this.smartChatModel.currentTopicName;
-    //let currentTopicIndex = this.retreiveCurrentTopic(currentTopicName, topics);
+    window.scroll(0,0);
     this.topic = this.smartChatModel.currentTopic;
     this.reponseType = 'text';
     console.log("Current Topic: " + JSON.stringify(this.topic));
@@ -36,15 +34,4 @@ export class TopicAnswersComponent implements OnInit {
     this.smartChatModel.sendTopic(this.topic);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
-
-  // retreiveCurrentTopic(currentTopicName: string, topics: Topic[]): number {
-  //   let topicIndex;
-  //   topics.forEach((topic, index) => {
-  //     if (topic.name === currentTopicName) {
-  //       topicIndex = index;
-  //     }
-  //   });
-  //   return topicIndex;
-  // }
-
 }

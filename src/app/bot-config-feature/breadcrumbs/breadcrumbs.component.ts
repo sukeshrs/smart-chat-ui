@@ -18,9 +18,11 @@ export class BreadcrumbsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router) {
+    }
 
   ngOnInit() {
+    this.breadcrumbs = this.route.firstChild.routeConfig.data["breadcrumbs"];
     this.router.events
       .filter((event) => event instanceof NavigationEnd)
       .map(() => this.route)
