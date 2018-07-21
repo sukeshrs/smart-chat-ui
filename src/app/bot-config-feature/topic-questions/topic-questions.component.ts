@@ -20,9 +20,6 @@ export class TopicQuestionsComponent implements OnInit {
 
   ngOnInit() {
     window.scroll(0,0);
-    //let topics = this.smartChatModel.currentBot.value.topics;
-    //let currentTopicName = this.smartChatModel.currentTopicName;
-    //let currentTopicIndex = this.retreiveCurrentTopic(currentTopicName, topics);
     this.topic = this.smartChatModel.currentTopic;
     if (!this.topic.questions) {
       this.topic.questions = [];
