@@ -11,6 +11,8 @@ import { BotConfigRepository } from '../../model/bot-config-repository.model';
 })
 export class SidebarComponent implements OnInit {
 
+  publishLoading : boolean =false;
+
   constructor(
     private botConfigService: BotConfigService,
     private smartChatModel: SmartChatModel,
@@ -25,9 +27,11 @@ export class SidebarComponent implements OnInit {
     let kycModel : any;
     kycModel = this.constructKycModel(this.smartChatModel.currentBot);
 
+    this.publishLoading=true;
     console.log('kycModel'+ JSON.stringify(kycModel));
     this.botConfigService.updateBotKyc(kycModel).subscribe(data =>{
       console.log("Updated kycModel: " + JSON.stringify(data));
+      this.publishLoading=false;
     })
 
     this.botConfigService.updateBotConfig(this.smartChatModel.currentBot).subscribe(
@@ -52,14 +56,19 @@ export class SidebarComponent implements OnInit {
    let value = {};
    botConfigRepo.value.topics.forEach((topic) => {
      let currentTopic  = {};
+
+     let text = {
+       text : 'follow message'
+     }
+    
      currentTopic['fulfill_status'] = true;
-     currentTopic['follow_message'] = [];
+     currentTopic['follow_message'] = [text];
      currentTopic['sample_request'] = topic.questions.join('|');
      currentTopic['slotted'] =false;
-     currentTopic['follow'] ='';
+     currentTopic['follow'] ='appreciate';
      currentTopic['fulfill'] ='internal';
      currentTopic['response'] = topic.answers;
-     value[topic.name] =currentTopic;
+     value[(topic.name).toLowerCase()] =currentTopic;
    })
    kyc['value'] =JSON.stringify(value);
   return kyc;

@@ -9,6 +9,7 @@ export class SmartChatModel {
   botConfigList: BotConfigRepository[];
   currentBot: BotConfigRepository;
   currentTopic: Topic;
+  publishLoading : boolean;
 
   constructor() { }
   private subject = new Subject<any>();
