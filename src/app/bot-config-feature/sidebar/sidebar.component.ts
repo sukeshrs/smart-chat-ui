@@ -16,7 +16,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class SidebarComponent implements OnInit {
 
-  publishLoading : boolean =false;
+  publishLoading: boolean = false;
 
   constructor(
     private botConfigService: BotConfigService,
@@ -27,58 +27,68 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
-  gotoCreateNewTopic(){
-    this.smartChatModel.currentBot.stepConfig='nameTopic';
-    this.smartChatModel.currentTopic=null;
+  gotoCreateNewTopic() {
+    this.smartChatModel.currentBot.stepConfig = 'nameTopic';
+    this.smartChatModel.currentTopic = null;
     this.router.navigate(['./topic-name'], { relativeTo: this.route });
   }
 
-  publishBot(){
-    this.publishLoading=true;
-    this.constructKycModel(this.smartChatModel.currentBot);
-  } 
-
-  constructKycModel(botConfigRepo : BotConfigRepository) {
-
-   let kyc = {};
-   kyc['botId'] = botConfigRepo.botId;
-   kyc['key'] = 'key';
-   let value = {};
-
-
-   let arrayOfMethodCall = [];
-
-   //Push all the method calls for each topic in to an array. This would help in executing forkJoin
-   botConfigRepo.value.topics.forEach((topic) => {
-    arrayOfMethodCall.push(this.constructTopic(topic));
-   });
-
-   //Make parrellel calls to the constructTopic method
-   Observable.forkJoin(arrayOfMethodCall).subscribe(result=>{
-
-     result.forEach(topicResponse => {
-       var test = Object.keys(topicResponse)[0];
-       value[test] = topicResponse[test];
-     });
-
-     console.log("value inside subscripbe" + JSON.stringify(value));
-     kyc['value'] =JSON.stringify(value);
-
-     this.botConfigService.updateBotKyc(kyc).subscribe(data =>{
-       console.log("Updated kyc: " + JSON.stringify(data));
-       this.publishLoading=false;
-     })
-
-    this.botConfigService.updateBotConfig(this.smartChatModel.currentBot).subscribe(
-      data => {
-        console.log("Updated: " + JSON.stringify(data));
-      },
-      error => console.log("ERROR ::" + error)
-    );
-   });
+  publishBot() {
+    this.publishLoading = true;
+    this.buildKycModel(this.smartChatModel.currentBot);
   }
 
+  buildKycModel(botConfigRepo: BotConfigRepository) {
 
+    let kyc = {};
+    kyc['botId'] = botConfigRepo.botId;
+    kyc['key'] = 'key';
+    let value = {};
+    let arrayOfMethodCall = [];
+
+    /* 
+     *Push all the method calls for each topic in to an array.
+     *This would help in executing the methods using Observable forkJoin.
+    */
+    botConfigRepo.value.topics.forEach((topic) => {
+      arrayOfMethodCall.push(this.constructTopic(topic));
+    });
+
+    //Make parrellel calls to the constructTopic method for each of the topic
+    Observable.forkJoin(arrayOfMethodCall).subscribe(result => {
+      result.forEach(topicResponse => {
+        var test = Object.keys(topicResponse)[0];
+        value[test] = topicResponse[test];
+      });
+
+      kyc['value'] = JSON.stringify(value);
+
+      //Rest call to save the details for the AI chat bot
+      this.botConfigService.updateBotKyc(kyc).subscribe(data => {
+        this.publishLoading = false;
+      })
+
+      this.botConfigService.updateBotConfig(this.smartChatModel.currentBot).subscribe(
+        data => {
+          console.log("Updated: " + JSON.stringify(data)); 
+        },
+        error => console.log("ERROR ::" + error)
+      );
+    });
+  }
+
+  /* 
+    This function takes a topic as an argument and for each of the questions in the topic ,
+    it fires of a rest call and gets the variation questions.
+    sets all the questions returned from the rest call in the sample_request field .
+    It also sets all the values in the format which the bot should be published
+    
+    The function returns an Observable since there is a rest call made in between and the return should happen after the rest 
+    call is complete.
+
+  * @param topic
+  * @return Observable<any>
+  */
   constructTopic(topic): Observable<any> {
     let currentTopic = {};
     let value = {};
