@@ -8,7 +8,7 @@ import { BotConfigRepository } from "../model/bot-config-repository.model";
 export class BotConfigService {
 
   private botConfigURL = "https://botz.chat/smart-chat-portal-0.0.1/botconfig";
-  private botKycUrl = "https://botz.chat/smart-chat-portal-0.0.1/kyc"
+  private botKycUrl = "http://localhost:8080/smart-chat-portal/kyc"
   constructor(private http: HttpClient) { }
 
   updateBotConfig(botConfigRespository: BotConfigRepository):Observable<number>{
@@ -20,6 +20,12 @@ export class BotConfigService {
   updateBotKyc(botConfigRespository: any):Observable<number>{
     return this.http
     .put<number>(this.botKycUrl, botConfigRespository)
+    .map(result => result);
+  }
+
+  postForSynset(questionsObject: any):Observable<any>{
+    return this.http
+    .post<number>(this.botKycUrl +'/synset', questionsObject)
     .map(result => result);
   }
 
