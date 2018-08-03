@@ -7,7 +7,7 @@ import { BotConfigRepository } from "../model/bot-config-repository.model";
 @Injectable()
 export class BotConfigService {
 
-  private botConfigURL = "https://botz.chat/smart-chat-portal-0.0.1/botconfig";
+  private botConfigURL = "http://localhost:8080/smart-chat-portal/botconfig";
   private botKycUrl = "http://localhost:8080/smart-chat-portal/kyc"
   constructor(private http: HttpClient) { }
 

@@ -1,5 +1,6 @@
+
 <div class="form_control clearfix">
-    <label>Enter Your Response</label>
-    <input type="text" class="round_field" placeholder="Enter Your Response" [(ngModel)]="textResponse.text" (keydown.enter)="addAnswer()">
-    <button (click)="addAnswer()" class="arrow"><img src="assets/images/arrow-right.png"></button>
+    <label>Response</label>
+    <input type="text" class="round_field" placeholder="Enter Your Response" [(ngModel)]="textResponse" (keydown.enter)="submitResponse($event)">
+    <button (click)="submitResponse($event)" class="arrow"><img src="assets/images/arrow-right.png"></button>
 </div>
