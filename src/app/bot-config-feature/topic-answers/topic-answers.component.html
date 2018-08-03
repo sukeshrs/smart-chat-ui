@@ -3,17 +3,20 @@
   <div class="inside_box shadow_box">
     <div class="form_control clearfix">
       <label>Response Type</label>
-      <select class="round_field" [(ngModel)]="reponseType">
-        <option selected>Please Select</option>
+      responseType: {{responseType}}
+      <select class="round_field" [(ngModel)]="responseType" (change)="onChangeResponseType($event.target.value)">
+        <option value="">Please Select</option>
         <option value="text">Text</option>
         <option value="generic">Generic</option>
         <option value="media">Media</option>
         <option value="button">Button</option>
       </select>
     </div>
-
-    <div *ngIf="reponseType==='text'">
-      <response-text-type (clickSubmitArrow)="addAnswer()" [topic]="topic"></response-text-type>
+    <div *ngIf="responseType!==''">
+      <response-text-type (keydownEnter)="submitAnswer($event)"[textResponse]="text"></response-text-type>
+    </div>
+    <div *ngIf="responseType==='button'">
+      <response-button-type></response-button-type>
     </div>
 
 

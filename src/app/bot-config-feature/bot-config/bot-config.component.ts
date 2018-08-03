@@ -31,8 +31,8 @@ export class BotConfigComponent implements OnInit {
     })
 
     //set topics to empty array if none found
-    if (this.smartChatModel.currentBot != null && this.smartChatModel.currentBot.value.topics == null){
-      this.smartChatModel.currentBot.value.topics = []
+    if (!this.smartChatModel.currentBot.value.topics){
+      this.smartChatModel.currentBot.value.topics = [];
     }
 
     //retrieve current bot and topics
@@ -80,7 +80,7 @@ export class BotConfigComponent implements OnInit {
     //   last+=1;
     // }
     // else{
-    //   
+    //
     // }
     // this.updateTopicList(dupTopic);
   }
@@ -90,12 +90,14 @@ export class BotConfigComponent implements OnInit {
   }
 
   gotoTopicQuestions(topic: Topic){
+    window.scroll(0,0);
     this.smartChatModel.currentBot.stepConfig='editQuestions';
     this.smartChatModel.currentTopic = topic;
     this.router.navigate(['./topic-questions'], { relativeTo: this.route });
   }
 
   gotoTopicAnswers(topic: Topic){
+    window.scroll(0,0);
     this.smartChatModel.currentBot.stepConfig='editAnswers';
     this.smartChatModel.currentTopic = topic;
     this.router.navigate(['./topic-answers'], { relativeTo: this.route });

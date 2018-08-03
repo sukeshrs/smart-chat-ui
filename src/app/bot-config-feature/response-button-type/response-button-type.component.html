@@ -1,3 +1,33 @@
-<p>
-  response-button-type works!
-</p>
+
+<div (click)="addButton()" class="add_button">
+  <img src="assets/images/plus_icon.png">
+  <label>Add Button</label>
+</div>
+<div *ngFor="let button of buttons; let i = index">
+  <div class="input_container">
+    <div class="input_fields row">
+      <div class="form_control clearfix col-md-6 col-sm-12">
+        <label>Button Type</label>
+        <select class="round_field" [(ngModel)]="button.type">
+          <option value="" selected>Please Select</option>
+          <option value="url">URL Button</option>
+          <option value="postback">Postback Button</option>
+        </select>
+      </div>
+      <div class="form_control clearfix col-md-6 col-sm-12">
+        <label>Button Title</label>
+        <input type="text" class="round_field" placeholder="Enter button title"[(ngModel)]="button.title">
+      </div>
+    </div>
+    <div class="input_fields row">
+      <div class="form_control clearfix col-md-6 col-sm-12" *ngIf="button.type==='url'">
+        <label>URL</label>
+        <input type="text" class="round_field" placeholder="Enter URL" [(ngModel)]="button.url">
+      </div>
+      <div class="form_control clearfix col-md-6 col-sm-12" *ngIf="button.type==='postback'">
+        <label>Text Postback</label>
+        <input type="text" class="round_field" placeholder="Enter text payload" [(ngModel)]="button.textPayload">
+      </div>
+    </div>
+  </div>
+</div>

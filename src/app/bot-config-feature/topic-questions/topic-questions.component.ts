@@ -57,14 +57,4 @@ export class TopicQuestionsComponent implements OnInit {
     return Array.from(new Set(questions));
   }
 
-  // retreiveCurrentTopic(currentTopicName: string, topics: Topic[]): number {
-  //   let topicIndex;
-  //   topics.forEach((topic, index) => {
-  //     if (topic.name === currentTopicName) {
-  //       topicIndex = index;
-  //     }
-  //   });
-  //   return topicIndex;
-  // }
-
 }
