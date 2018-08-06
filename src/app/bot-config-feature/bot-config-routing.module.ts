@@ -22,7 +22,8 @@ const botConfigRoutes: Routes = [
       {
         path: 'topic-answers', component: TopicAnswersComponent,
         data: {breadcrumbs:['Create Topic', 'Topic Name', 'Edit Questions', 'Edit Answer']} },
-    ]
+    ],
+    runGuardsAndResolvers: 'always'
   }
 ];
 

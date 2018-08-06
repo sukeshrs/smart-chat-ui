@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SmartChatModel } from "../../model/smart-chat-model.service";
 import { BotConfigRepository } from "../../model/bot-config-repository.model";
 import { Topic } from '../../model/topic.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Response } from '../../model/response.model';
 import { Attachment } from '../../model/topic/attachment.model';
 
@@ -13,19 +13,36 @@ import { Attachment } from '../../model/topic/attachment.model';
 })
 export class TopicAnswersComponent implements OnInit {
 
-  public response: Response;
-  public topic: Topic;
-  public responseType: string;
-  public text: string;
+  response: Response;
+  topic: Topic;
+  responseType: string;
+  text: string;
   botConfig: BotConfigRepository;
+  navigationSubscription;
 
   constructor(
     private smartChatModel: SmartChatModel,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+      this.navigationSubscription = this.router.events.subscribe((e: any) => {
+        if (e instanceof NavigationEnd) {
+          this.initilizeInvites();
+        }
+      });
+    }
 
   ngOnInit() {
-    window.scroll(0,0);
+    this.initilizeInvites();
+  }
+
+  ngOnDestroy() {
+    if (this.navigationSubscription) {
+       this.navigationSubscription.unsubscribe();
+    }
+  }
+
+  //set all the variables
+  initilizeInvites() {
     this.topic= this.smartChatModel.currentTopic;
 
     if(!this.topic.answers){
@@ -43,6 +60,16 @@ export class TopicAnswersComponent implements OnInit {
       this.topic.answers.push(newResponse);
     }
     this.response=this.topic.answers[0]
+
+    if (!this.response.attachment){
+      this.response.attachment={
+        payload: {
+          buttons: [],
+          template_type : ""
+        },
+        type: ''}
+    }
+
     this.responseType=this.response.attachment.payload.template_type;
     if(this.responseType=="text"){
       this.text=this.response.text;
@@ -52,6 +79,7 @@ export class TopicAnswersComponent implements OnInit {
     }
     console.log("Current Topic: " + JSON.stringify(this.topic));
     console.log("Current Bot: " + JSON.stringify(this.smartChatModel.currentBot));
+
   }
 
   submitAnswer(textResponse: string){

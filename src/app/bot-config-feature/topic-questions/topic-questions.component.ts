@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Topic } from '../../model/topic.model';
 import { SmartChatModel } from "../../model/smart-chat-model.service";
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'topic-questions',
@@ -12,13 +12,31 @@ export class TopicQuestionsComponent implements OnInit {
 
   topic: Topic;
   question: string;
+  navigationSubscription;
 
   constructor(
     private smartChatModel: SmartChatModel,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+      this.navigationSubscription = this.router.events.subscribe((e: any) => {
+        if (e instanceof NavigationEnd) {
+          this.initilizeInvites();
+        }
+      });
+    }
 
   ngOnInit() {
+    this.initilizeInvites();
+  }
+
+  ngOnDestroy() {
+    if (this.navigationSubscription) {
+       this.navigationSubscription.unsubscribe();
+    }
+  }
+
+  //set all the variables
+  initilizeInvites() {
     window.scroll(0,0);
     this.topic = this.smartChatModel.currentTopic;
     if (!this.topic.questions) {
@@ -28,7 +46,6 @@ export class TopicQuestionsComponent implements OnInit {
     console.log("Current Topic: " + JSON.stringify(this.topic));
     console.log("Current Bot: " + JSON.stringify(this.smartChatModel.currentBot));
   }
-
   public addTopic() {
     // this.smartChatModel.currentBot.value.topic = this.topic;
   }
