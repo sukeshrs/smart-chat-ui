@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `npm install -g @angular/cli`
 
-Navigate to project smart-chat-ui directory
+Navigate to project smart-chat-ui directory. 
 Run `npm install`
 
 ## Development server
