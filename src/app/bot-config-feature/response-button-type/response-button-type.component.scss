@@ -18,9 +18,10 @@
 .input_container {
   margin-bottom: 2em;
 }
-
-.add_button {
-
+.add_button{
+  margin-left: 1em;
+}
+.action_button{
   cursor: pointer;
   label{
     font-family: 'Alegreya', serif;
@@ -35,8 +36,11 @@
   img{
     max-width: 32px;
     width: auto;
-    margin-left: 1em;
     margin-right: .5em;
 
   }
+}
+.add_button {
+
+
 }
