@@ -1,4 +1,42 @@
-.form_control label {
-    max-width: 200px;
+::ng-deep .form_control {
+  margin-bottom: 0;
+  label{
+    max-width: 6.5em;
     width: 100%;
+    margin-bottom: 0;
+  }
+  input{
+    //max-width: 11em;
+    width: 100%;
+  }
+  select{
+    max-width: 11em;
+    width: 100%;
+  }
+}
+
+::ng-deep .input_container {
+  margin-bottom: 2em;
+}
+::ng-deep .add_button{
+  margin-left: 1em;
+}
+::ng-deep .action_button{
+  cursor: pointer;
+  label{
+    font-family: 'Alegreya', serif;
+    font-size: 20px;
+    color: #464866;
+    max-width:155px;
+    width: 100%;
+    display: inline-block;
+    line-height: 44px;
+    cursor: inherit;
+  }
+  img{
+    max-width: 32px;
+    width: auto;
+    margin-right: .5em;
+
+  }
 }

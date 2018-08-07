@@ -44,53 +44,64 @@ export class TopicAnswersComponent implements OnInit {
   //set all the variables
   initilizeInvites() {
     this.topic= this.smartChatModel.currentTopic;
-
+    this.responseType='';
     if(!this.topic.answers){
-      let newResponse: Response;
-      newResponse ={
-        attachment: {
-          payload: {
-            buttons: [],
-            template_type : ""
-          },
-          type: ''},
-        text: ""
+      let newResponse: Response ={
+        attachment: null,
+        text: ''
       };
       this.topic.answers = [];
       this.topic.answers.push(newResponse);
     }
     this.response=this.topic.answers[0]
 
+    //TODO: workaround for setting null values
     if (!this.response.attachment){
       this.response.attachment={
-        payload: {
-          buttons: [],
-          template_type : ""
-        },
-        type: ''}
+        type: '',
+        payload: null}
     }
 
-    this.responseType=this.response.attachment.payload.template_type;
-    if(this.responseType=="text"){
-      this.text=this.response.text;
+    if (!this.response.attachment.payload){
+      this.response.attachment.payload={
+        template_type:'',
+        text:''
+      }
+    }else{
+      this.responseType=this.response.attachment.payload.template_type;
     }
-    else{
-      this.text=this.response.attachment.payload.text;
+
+    if(this.response.text!=''){
+      this.responseType='text';
     }
+    //switch response according to type
+    this.onChangeResponseType(this.responseType);
+
     console.log("Current Topic: " + JSON.stringify(this.topic));
     console.log("Current Bot: " + JSON.stringify(this.smartChatModel.currentBot));
 
   }
 
   submitAnswer(textResponse: string){
-    this.response.attachment.payload.template_type=this.responseType;
     if(this.responseType=="text"){
       this.response.text=textResponse;
-      this.response.attachment.payload.text="";
+      this.response.attachment=null;
     }
-    else{
+    else if(this.responseType=="button"){
+      this.response.attachment.payload.buttons=this.smartChatModel.currentButtons;
+      this.response.attachment.payload.elements=[];
+    }
+    else if(this.responseType=="media"){
+      this.response.attachment.payload.buttons=[];
+      this.smartChatModel.currentElements[0].buttons=this.smartChatModel.currentButtons;
+      this.response.attachment.payload.elements=this.smartChatModel.currentElements;
+    }
+
+    if(this.responseType!="text"){
       this.response.text="";
       this.response.attachment.payload.text=textResponse;
+      this.response.attachment.type="template";
+      this.response.attachment.payload.template_type=this.responseType;
     }
     this.smartChatModel.currentBot.stepConfig='createNewTopic';
     this.smartChatModel.sendTopic(this.topic);
@@ -99,13 +110,19 @@ export class TopicAnswersComponent implements OnInit {
 
   onChangeResponseType(responseType: string){
 
+    this.response.attachment.payload.template_type=responseType;
     if (responseType == "button"){
-      this.response.attachment.payload.template_type=responseType;
-      this.response.attachment.type="template";
+      this.smartChatModel.currentButtons=this.response.attachment.payload.buttons;
       this.text=this.response.attachment.payload.text;
     }
-    else{
-      this.response.attachment.payload.buttons=[];
+    else if (responseType == "media"){
+      this.smartChatModel.currentElements=this.response.attachment.payload.elements;
+      this.smartChatModel.currentButtons=[];
+      if(this.smartChatModel.currentElements !=null && this.smartChatModel.currentElements.length !=0){
+        this.smartChatModel.currentButtons=this.smartChatModel.currentElements[0].buttons;
+      }
+    }
+    else if (responseType == "text"){
       this.text=this.response.text;
     }
   }

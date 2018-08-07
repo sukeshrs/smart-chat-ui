@@ -12,7 +12,6 @@ import { SmartChatModel } from "../../model/smart-chat-model.service";
 })
 export class ResponseButtonTypeComponent implements OnInit {
 
-  public buttons: Button[];
   navigationSubscription;
 
   constructor(
@@ -37,12 +36,11 @@ export class ResponseButtonTypeComponent implements OnInit {
   }
 
   initilizeInvites(){
-    this.buttons=this.smartChatModel.currentTopic.answers[0].attachment.payload.buttons;
-    if(!this.buttons){
-      this.buttons = [];
+    if(!this.smartChatModel.currentButtons){
+      this.smartChatModel.currentButtons = [];
     }
   }
-  
+
   addButton(){
     let newButton: Button;
     newButton = {
@@ -51,11 +49,11 @@ export class ResponseButtonTypeComponent implements OnInit {
       url:"",
       payload:""
     }
-    this.buttons.push(newButton);
+    this.smartChatModel.currentButtons.push(newButton);
   }
 
   removeButton(i: number){
-    this.buttons.splice(i,1);
+    this.smartChatModel.currentButtons.splice(i,1);
   }
 
 }

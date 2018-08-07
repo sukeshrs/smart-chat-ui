@@ -1,7 +1,7 @@
 <div class="started_box">
   <!-- <h2 class="section_heading">Get Started/Edit Topic Request</h2> -->
   <div class="inside_box shadow_box">
-    <div class="form_control clearfix">
+    <div class="form_control clearfix response_options">
       <label>Response Type</label>
       <select class="round_field" [(ngModel)]="responseType" (change)="onChangeResponseType($event.target.value)">
         <option value="">Please Select</option>
@@ -16,6 +16,9 @@
     </div>
     <div *ngIf="responseType==='button'">
       <response-button-type></response-button-type>
+    </div>
+    <div *ngIf="responseType==='media'">
+      <response-media-type></response-media-type>
     </div>
 
 
