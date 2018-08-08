@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { Topic } from '../../model/topic.model';
 import { Button } from '../../model/topic/button.model';
@@ -11,13 +12,32 @@ import { SmartChatModel } from "../../model/smart-chat-model.service";
 })
 export class ResponseButtonTypeComponent implements OnInit {
 
-  public buttons: Button[];
-  constructor(private smartChatModel: SmartChatModel) { }
+  navigationSubscription;
+
+  constructor(
+    private smartChatModel: SmartChatModel,
+    private route: ActivatedRoute,
+    private router: Router) {
+      this.navigationSubscription = this.router.events.subscribe((e: any) => {
+        if (e instanceof NavigationEnd) {
+          this.initilizeInvites();
+        }
+      });
+    }
 
   ngOnInit() {
-    this.buttons=this.smartChatModel.currentTopic.answers[0].attachment.payload.buttons;
-    if(!this.buttons){
-      this.buttons = [];
+    this.initilizeInvites();
+  }
+
+  ngOnDestroy() {
+    if (this.navigationSubscription) {
+       this.navigationSubscription.unsubscribe();
+    }
+  }
+
+  initilizeInvites(){
+    if(!this.smartChatModel.currentButtons){
+      this.smartChatModel.currentButtons = [];
     }
   }
 
@@ -29,7 +49,11 @@ export class ResponseButtonTypeComponent implements OnInit {
       url:"",
       payload:""
     }
-    this.buttons.push(newButton);
+    this.smartChatModel.currentButtons.push(newButton);
+  }
+
+  removeButton(i: number){
+    this.smartChatModel.currentButtons.splice(i,1);
   }
 
 }

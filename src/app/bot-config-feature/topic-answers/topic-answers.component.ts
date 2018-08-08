@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SmartChatModel } from "../../model/smart-chat-model.service";
 import { BotConfigRepository } from "../../model/bot-config-repository.model";
 import { Topic } from '../../model/topic.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Response } from '../../model/response.model';
 import { Attachment } from '../../model/topic/attachment.model';
 
@@ -13,56 +13,95 @@ import { Attachment } from '../../model/topic/attachment.model';
 })
 export class TopicAnswersComponent implements OnInit {
 
-  public response: Response;
-  public topic: Topic;
-  public responseType: string;
-  public text: string;
+  response: Response;
+  topic: Topic;
+  responseType: string;
+  text: string;
   botConfig: BotConfigRepository;
+  navigationSubscription;
 
   constructor(
     private smartChatModel: SmartChatModel,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+      this.navigationSubscription = this.router.events.subscribe((e: any) => {
+        if (e instanceof NavigationEnd) {
+          this.initilizeInvites();
+        }
+      });
+    }
 
   ngOnInit() {
-    window.scroll(0,0);
-    this.topic= this.smartChatModel.currentTopic;
+    this.initilizeInvites();
+  }
 
+  ngOnDestroy() {
+    if (this.navigationSubscription) {
+       this.navigationSubscription.unsubscribe();
+    }
+  }
+
+  //set all the variables
+  initilizeInvites() {
+    this.topic= this.smartChatModel.currentTopic;
+    this.responseType='';
     if(!this.topic.answers){
-      let newResponse: Response;
-      newResponse ={
-        attachment: {
-          payload: {
-            buttons: [],
-            template_type : ""
-          },
-          type: ''},
-        text: ""
+      let newResponse: Response ={
+        attachment: null,
+        text: ''
       };
       this.topic.answers = [];
       this.topic.answers.push(newResponse);
     }
     this.response=this.topic.answers[0]
-    this.responseType=this.response.attachment.payload.template_type;
-    if(this.responseType=="text"){
-      this.text=this.response.text;
+
+    //TODO: workaround for setting null values
+    if (!this.response.attachment){
+      this.response.attachment={
+        type: '',
+        payload: null}
     }
-    else{
-      this.text=this.response.attachment.payload.text;
+
+    if (!this.response.attachment.payload){
+      this.response.attachment.payload={
+        template_type:'',
+        text:''
+      }
+    }else{
+      this.responseType=this.response.attachment.payload.template_type;
     }
+
+    if(this.response.text!=''){
+      this.responseType='text';
+    }
+    //switch response according to type
+    this.onChangeResponseType(this.responseType);
+
     console.log("Current Topic: " + JSON.stringify(this.topic));
     console.log("Current Bot: " + JSON.stringify(this.smartChatModel.currentBot));
+
   }
 
   submitAnswer(textResponse: string){
-    this.response.attachment.payload.template_type=this.responseType;
     if(this.responseType=="text"){
       this.response.text=textResponse;
-      this.response.attachment.payload.text="";
+      this.response.attachment=null;
     }
-    else{
+    else if(this.responseType=="button"){
+      this.response.attachment.payload.buttons=this.smartChatModel.currentButtons;
+      this.response.attachment.payload.elements=[];
+    }
+    else if(this.responseType=="media"){
+      this.response.attachment.payload.buttons=[];
+      this.smartChatModel.currentElements[0].buttons=this.smartChatModel.currentButtons;
+      this.response.attachment.payload.elements=this.smartChatModel.currentElements;
+    }
+
+    if(this.responseType!="text"){
       this.response.text="";
       this.response.attachment.payload.text=textResponse;
+      this.response.attachment.type="template";
+      this.response.attachment.payload.template_type=this.responseType;
     }
     this.smartChatModel.currentBot.stepConfig='createNewTopic';
     this.smartChatModel.sendTopic(this.topic);
@@ -71,13 +110,19 @@ export class TopicAnswersComponent implements OnInit {
 
   onChangeResponseType(responseType: string){
 
+    this.response.attachment.payload.template_type=responseType;
     if (responseType == "button"){
-      this.response.attachment.payload.template_type=responseType;
-      this.response.attachment.type="template";
+      this.smartChatModel.currentButtons=this.response.attachment.payload.buttons;
       this.text=this.response.attachment.payload.text;
     }
-    else{
-      this.response.attachment.payload.buttons=[];
+    else if (responseType == "media"){
+      this.smartChatModel.currentElements=this.response.attachment.payload.elements;
+      this.smartChatModel.currentButtons=[];
+      if(this.smartChatModel.currentElements !=null && this.smartChatModel.currentElements.length !=0){
+        this.smartChatModel.currentButtons=this.smartChatModel.currentElements[0].buttons;
+      }
+    }
+    else if (responseType == "text"){
       this.text=this.response.text;
     }
   }

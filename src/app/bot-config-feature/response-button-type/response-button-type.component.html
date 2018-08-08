@@ -1,9 +1,9 @@
 
-<div (click)="addButton()" class="add_button">
+<div (click)="addButton()" class="action_button add_button">
   <img src="assets/images/plus_icon.png">
   <label>Add Button</label>
 </div>
-<div *ngFor="let button of buttons; let i = index">
+<div *ngFor="let button of smartChatModel.currentButtons; let i = index">
   <div class="input_container">
     <div class="input_fields row">
       <div class="form_control clearfix col-md-6 col-sm-12">
@@ -14,7 +14,7 @@
           <option value="postback">Postback Button</option>
         </select>
       </div>
-      <div class="form_control clearfix col-md-6 col-sm-12">
+      <div class="form_control clearfix col-md-6 col-sm-12" *ngIf="button.type!==''">
         <label>Button Title</label>
         <input type="text" class="round_field" placeholder="Enter button title"[(ngModel)]="button.title">
       </div>
@@ -27,6 +27,9 @@
       <div class="form_control clearfix col-md-6 col-sm-12" *ngIf="button.type==='postback'">
         <label>Text Postback</label>
         <input type="text" class="round_field" placeholder="Enter text payload" [(ngModel)]="button.textPayload">
+      </div>
+      <div (click)="removeButton(i)" class="action_button col-md-6 col-sm-12" *ngIf="button.type!==''">
+        <img src="assets/images/delete.png">
       </div>
     </div>
   </div>
