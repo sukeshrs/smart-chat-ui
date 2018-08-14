@@ -1,8 +1,3 @@
-
-<div (click)="addButton()" class="action_button add_button">
-  <img src="assets/images/plus_icon.png">
-  <label>Add Button</label>
-</div>
 <div *ngFor="let button of smartChatModel.currentButtons; let i = index">
   <div class="input_container">
     <div class="input_fields row">
@@ -33,4 +28,8 @@
       </div>
     </div>
   </div>
+</div>
+<div (click)="addButton()" class="action_button add_button">
+  <img src="assets/images/plus_icon.png">
+  <label>Add Button</label>
 </div>
