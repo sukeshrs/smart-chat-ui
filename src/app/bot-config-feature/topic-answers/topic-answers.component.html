@@ -11,7 +11,7 @@
         <option value="button">Button</option>
       </select>
     </div>
-    <div *ngIf="responseType!==''">
+    <div *ngIf="responseType!=='' && responseType!=='media'>
       <response-text-type (keydownEnter)="submitAnswer($event)"[textResponse]="text"></response-text-type>
     </div>
     <div *ngIf="responseType==='button'">
@@ -20,25 +20,8 @@
     <div *ngIf="responseType==='media'">
       <response-media-type></response-media-type>
     </div>
-
-
-    <!--    <div class="create_fields_block">
-      <div class="clearfix">
-        <div *ngFor="let question of topic.questions; let i = index">
-          <div class="element_wrapper">
-            <div class="element">{{question}}</div>
-            <div class="delete_option" (click)="removeQuestion(i)">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </div>
-          </div>
-      </div>
+    <div *ngIf="responseType==='generic'">
+      <response-generic-type></response-generic-type>
     </div>
-  </div>
-  <div class="btn_block">
-    <button type="button" class="custom_btn">
-      Edit Response&nbsp;&nbsp;&nbsp;
-      <img src="assets/images/arrow-right.png" />
-    </button>
-  </div> -->
   </div>
 </div>
