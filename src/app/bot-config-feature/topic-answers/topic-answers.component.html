@@ -11,7 +11,7 @@
         <option value="button">Button</option>
       </select>
     </div>
-    <div *ngIf="responseType!=='' && responseType!=='media'>
+    <div *ngIf="responseType!==''">
       <response-text-type (keydownEnter)="submitAnswer($event)"[textResponse]="text"></response-text-type>
     </div>
     <div *ngIf="responseType==='button'">
