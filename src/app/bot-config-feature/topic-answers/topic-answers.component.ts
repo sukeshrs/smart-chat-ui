@@ -112,13 +112,13 @@ export class TopicAnswersComponent implements OnInit {
         answer=this.textComponent.getAnswer();
       }
       else if(this.responseType=="button"){
-        answer=this.textComponent.getAnswer();
+        answer=this.buttonComponent.getAnswer();
       }
       else if(this.responseType=="media"){
-        answer=this.textComponent.getAnswer();
+        answer=this.mediaComponent.getAnswer();
       }
       else if(this.responseType=="generic"){
-        answer=this.textComponent.getAnswer();
+        answer=this.genericComponent.getAnswer();
       }
     }
     this.topic.answers[0]=answer;

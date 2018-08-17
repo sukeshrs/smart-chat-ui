@@ -55,11 +55,7 @@ export class ResponseGenericTypeComponent implements OnInit {
     }
     newAnswer.attachment.payload.elements.push(newElement);
 
-    const elements = _.get(this.answer,"attachment.payload.elements");
-    console.log("elements" + elements);
-
-    if(this.answer.attachment.payload.elements &&
-       this.answer.attachment.payload.elements.length>0){
+    if(_.get(this.answer,"attachment.payload.elements")){
          newAnswer.attachment.payload.elements=this.answer.attachment.payload.elements;
     }
     this.answer=newAnswer;
