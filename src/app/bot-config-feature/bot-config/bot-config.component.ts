@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Topic } from '../../model/topic.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SmartChatModel } from "../../model/smart-chat-model.service";
 import { BotConfigService } from '../bot-config.service';
 import { BotConfigRepository } from "../../model/bot-config-repository.model";
-
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-bot-config',
@@ -16,6 +16,7 @@ export class BotConfigComponent implements OnInit {
   botConfig: BotConfigRepository;
   topicList: Topic[];
   topicBoxesMin: boolean[] = [];
+  topicSubscription;
 
   constructor(
     private smartChatModel: SmartChatModel,
@@ -25,13 +26,13 @@ export class BotConfigComponent implements OnInit {
 
   ngOnInit() {
     //Listener for topic from router outlet
-    this.smartChatModel.receiveTopic().subscribe(data => {
-      console.log("Router Outlet Topic : " + JSON.stringify(data));
-      this.updateTopicList(data.topic);
+    this.topicSubscription=this.smartChatModel.receiveTopic().subscribe(topic => {
+      console.log("Router Outlet Topic : " + JSON.stringify(topic));
+      this.updateTopicList(topic);
     })
 
     //set topics to empty array if none found
-    if (!this.smartChatModel.currentBot.value.topics){
+    if (!_.get(this.smartChatModel.currentBot,"value.topics")){
       this.smartChatModel.currentBot.value.topics = [];
     }
 
@@ -39,6 +40,10 @@ export class BotConfigComponent implements OnInit {
     this.botConfig = this.smartChatModel.currentBot;
     this.topicList = this.smartChatModel.currentBot.value.topics;
     console.log("Configuring Bot: " + JSON.stringify(this.botConfig));
+  }
+
+  ngOnDestroy(){
+    this.topicSubscription.unsubscribe();
   }
 
   updateTopicList(topic) {
@@ -72,17 +77,19 @@ export class BotConfigComponent implements OnInit {
   }
 
   duplicateTopic(topic: Topic){
-    // let dupTopic: Topic = JSON.parse(JSON.stringify(topic));
-    // let nameList = dupTopic.name.split("_");
-    // let last = parseInt(nameList[nameList.length-1];
-    //
-    // if (last){
-    //   last+=1;
-    // }
-    // else{
-    //
-    // }
-    // this.updateTopicList(dupTopic);
+    let dupTopic: Topic = JSON.parse(JSON.stringify(topic));
+    let nameList = dupTopic.name.split("_");
+    let last = _.toInteger(_.last(nameList));
+
+    if (last){
+      last+=1;
+      nameList[nameList.length-1]=_.toString(last);
+    }
+    else{
+      nameList.push("1");
+    }
+    dupTopic.name=nameList.join("_");
+    this.updateTopicList(dupTopic);
   }
 
   toggleTopicPopup(i){

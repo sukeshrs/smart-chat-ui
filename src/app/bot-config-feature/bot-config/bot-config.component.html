@@ -36,7 +36,7 @@
             [class.topic-min]="topicBoxesMin[i]" id="topic_box_{{ i }}" *ngFor="let topic of topicList; let i = index">
 
             <span class="action-wrap">
-              <a href="javascript:void(0);">
+              <a href="javascript:void(0);" (click)="duplicateTopic(topic)">
                 <i class="fas fa-copy"></i>
               </a>
               <span class="vert-hr"></span>
@@ -44,7 +44,7 @@
                 <i class="fas fa-trash"></i>
               </a>
             </span>
-            <a href="javascript:void(0);" (click)="duplicateTopic(topic)" class="toggle_btn topic-toggle" (click)="toggleTopicPopup(i)">
+            <a href="javascript:void(0);" class="toggle_btn topic-toggle" (click)="toggleTopicPopup(i)">
               <i [ngClass]="{'fa-plus': topicBoxesMin[i], 'fa-minus': !topicBoxesMin[i]}" class="fas"></i>
             </a>
             <h4>{{ topic.name }}</h4>

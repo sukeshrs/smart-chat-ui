@@ -53,10 +53,11 @@ export class ResponseGenericTypeComponent implements OnInit {
         }
       }
     }
-    newAnswer.attachment.payload.elements.push(newElement);
-
-    if(_.get(this.answer,"attachment.payload.elements")){
-         newAnswer.attachment.payload.elements=this.answer.attachment.payload.elements;
+    if(_.get(this.answer,"attachment.payload.elements",[]).length > 0){
+      newAnswer.attachment.payload.elements=_.get(this.answer,"attachment.payload.elements");
+    }
+    else{
+      newAnswer.attachment.payload.elements=[newElement];
     }
     this.answer=newAnswer;
   }
