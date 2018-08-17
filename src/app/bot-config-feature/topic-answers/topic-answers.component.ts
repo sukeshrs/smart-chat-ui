@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { SmartChatModel } from "../../model/smart-chat-model.service";
 import { Topic } from '../../model/topic.model';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
@@ -8,6 +8,7 @@ import { ResponseGenericTypeComponent} from '../response-generic-type/response-g
 import { ResponseButtonTypeComponent} from '../response-button-type/response-button-type.component';
 import { ResponseTextTypeComponent} from '../response-text-type/response-text-type.component';
 import { ResponseMediaTypeComponent} from '../response-media-type/response-media-type.component';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'topic-answers',
@@ -32,8 +33,8 @@ export class TopicAnswersComponent implements OnInit {
   response: Response;
   topic: Topic;
   responseType: string;
-
   navigationSubscription;
+  messageSubscription;
 
   constructor(
     private smartChatModel: SmartChatModel,
@@ -42,6 +43,12 @@ export class TopicAnswersComponent implements OnInit {
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
         if (e instanceof NavigationEnd) {
           this.initilizeInvites();
+        }
+      });
+      this.messageSubscription=this.smartChatModel.receiveMessage().subscribe( message =>{
+        if(message=="save-bot"){
+          this.updateAnswer(null);
+          this.smartChatModel.sendTopic(this.topic);
         }
       });
     }
@@ -54,45 +61,30 @@ export class TopicAnswersComponent implements OnInit {
     if (this.navigationSubscription) {
        this.navigationSubscription.unsubscribe();
     }
+    if (this.messageSubscription) {
+       this.messageSubscription.unsubscribe();
+    }
   }
 
   //set all the variables
   initilizeInvites() {
     this.topic= this.smartChatModel.currentTopic;
     this.responseType='';
-    //TODO: workaround for setting null values
-    if(!this.topic.answers){
-      let newResponse: Response ={
-        attachment: null,
-        text: ''
-      };
-      this.topic.answers = [];
-      this.topic.answers.push(newResponse);
-    }
-    this.response=this.topic.answers[0];
+    if(!_.get(this.topic,"answers[0]")){
+      this.topic.answers=[{}];
 
-    if (!this.response.attachment){
-      this.response.attachment={
-        type: '',
-        payload: null}
     }
-
-    if (!this.response.attachment.payload){
-      this.response.attachment.payload={
-        template_type:'',
-        text:''
-      }
-    }
+    this.response=_.get(this,"topic.answers[0]");
 
     //figure out the current response type
-    if(this.response.attachment.type=="template"){
+    if(_.get(this.response,"text")){
+      this.responseType='text';
+    }
+    if(_.get(this.response,"attachment.type",'') == "template"){
       this.responseType=this.response.attachment.payload.template_type;
     }
-    else if(this.response.attachment.type!=""){
+    else if(_.get(this.response,"attachment.type",'')!=""){
       this.responseType="media";
-    }
-    if(this.response.text && this.response.text!=""){
-      this.responseType='text';
     }
 
     console.log("Current Topic: " + JSON.stringify(this.topic));
@@ -100,7 +92,8 @@ export class TopicAnswersComponent implements OnInit {
 
   }
 
-  submitResponse(){
+  submitResponse(answer: Response){
+    this.updateAnswer(answer);
     this.smartChatModel.currentBot.stepConfig='createNewTopic';
     this.smartChatModel.sendTopic(this.topic);
     this.router.navigate(['../'], { relativeTo: this.route });
@@ -112,16 +105,15 @@ export class TopicAnswersComponent implements OnInit {
         answer=this.textComponent.getAnswer();
       }
       else if(this.responseType=="button"){
-        answer=this.textComponent.getAnswer();
+        answer=this.buttonComponent.getAnswer();
       }
       else if(this.responseType=="media"){
-        answer=this.textComponent.getAnswer();
+        answer=this.mediaComponent.getAnswer();
       }
       else if(this.responseType=="generic"){
-        answer=this.textComponent.getAnswer();
+        answer=this.genericComponent.getAnswer();
       }
     }
     this.topic.answers[0]=answer;
-    this.submitResponse();
   }
 }

@@ -14,13 +14,13 @@
 
     </div>
     <div *ngIf="responseType=='text'">
-      <response-text-type (keydownEnter)="updateAnswer($event)" [answer]="response"></response-text-type>
+      <response-text-type (keydownEnter)="submitResponse($event)" [answer]="response"></response-text-type>
     </div>
     <div *ngIf="responseType==='button'">
-      <response-button-type (keydownEnter)="updateAnswer($event)" [answer]="response"></response-button-type>
+      <response-button-type (keydownEnter)="submitResponse($event)" [answer]="response"></response-button-type>
     </div>
     <div *ngIf="responseType==='media'">
-      <response-media-type  (keydownEnter)="updateAnswer($event)" [answer]="response"></response-media-type>
+      <response-media-type  (keydownEnter)="submitResponse($event)" [answer]="response"></response-media-type>
     </div>
     <div *ngIf="responseType==='generic'">
       <response-generic-type [answer]="response"></response-generic-type>

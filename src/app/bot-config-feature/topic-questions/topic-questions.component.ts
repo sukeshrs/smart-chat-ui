@@ -13,6 +13,7 @@ export class TopicQuestionsComponent implements OnInit {
   topic: Topic;
   question: string;
   navigationSubscription;
+  messageSubscription;
 
   constructor(
     private smartChatModel: SmartChatModel,
@@ -21,6 +22,11 @@ export class TopicQuestionsComponent implements OnInit {
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
         if (e instanceof NavigationEnd) {
           this.initilizeInvites();
+        }
+      });
+      this.messageSubscription=this.smartChatModel.receiveMessage().subscribe( message =>{
+        if(message=="save-bot"){
+          this.smartChatModel.sendTopic(this.topic);
         }
       });
     }
@@ -32,6 +38,9 @@ export class TopicQuestionsComponent implements OnInit {
   ngOnDestroy() {
     if (this.navigationSubscription) {
        this.navigationSubscription.unsubscribe();
+    }
+    if (this.messageSubscription) {
+       this.messageSubscription.unsubscribe();
     }
   }
 
@@ -45,9 +54,6 @@ export class TopicQuestionsComponent implements OnInit {
     this.question = "";
     console.log("Current Topic: " + JSON.stringify(this.topic));
     console.log("Current Bot: " + JSON.stringify(this.smartChatModel.currentBot));
-  }
-  public addTopic() {
-    // this.smartChatModel.currentBot.value.topic = this.topic;
   }
 
   public gotoTopicAnswers(){

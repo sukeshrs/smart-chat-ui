@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Response } from '../../model/response.model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'response-media-type',
@@ -13,6 +14,7 @@ export class ResponseMediaTypeComponent implements OnInit {
   @Output() keydownEnter= new EventEmitter<Response>();
   @Input() private answer: Response;
   navigationSubscription;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router) {
@@ -42,11 +44,9 @@ export class ResponseMediaTypeComponent implements OnInit {
         }
       }
     }
-    if(this.answer.attachment &&
-       this.answer.attachment.payload){
-         newAnswer.attachment.type=this.answer.attachment.type;
-         newAnswer.attachment.payload.url=this.answer.attachment.payload.url;
-    }
+
+    newAnswer.attachment.type=_.get(this.answer,"attachment.payload.type",'');
+    newAnswer.attachment.payload.url=_.get(this.answer,"attachment.payload.type",'');
     this.answer=newAnswer;
   }
 

@@ -35,16 +35,12 @@ export class SidebarComponent implements OnInit {
 
   publishBot() {
     this.publishLoading = true;
+    this.saveBot();
     this.buildKycModel(this.smartChatModel.currentBot);
   }
 
   saveBot(){
-    this.botConfigService.updateBotConfig(this.smartChatModel.currentBot).subscribe(
-      data => {
-        console.log("Updated: " + JSON.stringify(data));
-      },
-      error => console.log("ERROR ::" + error)
-    );
+    this.smartChatModel.sendMessage("save-bot");
   }
 
   buildKycModel(botConfigRepo: BotConfigRepository) {
@@ -71,13 +67,6 @@ export class SidebarComponent implements OnInit {
       });
 
       kyc['value'] = JSON.stringify(value);
-
-      this.botConfigService.updateBotConfig(this.smartChatModel.currentBot).subscribe(
-        data => {
-          console.log("Updated: " + JSON.stringify(data));
-        },
-        error => console.log("ERROR ::" + error)
-      );
 
       //Rest call to save the details for the AI chat bot
       this.botConfigService.updateBotKyc(kyc).subscribe(data => {

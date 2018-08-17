@@ -3,6 +3,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ButtonsComponent } from '../buttons/buttons.component';
 import { Response } from '../../model/response.model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'response-button-type',
@@ -48,11 +49,10 @@ export class ResponseButtonTypeComponent implements OnInit {
         }
       }
     }
-    if(this.answer.attachment &&
-       this.answer.attachment.payload){
-         newAnswer.attachment.payload.text=this.answer.attachment.payload.text;
-         newAnswer.attachment.payload.buttons=this.answer.attachment.payload.buttons;
-    }
+
+    newAnswer.attachment.payload.text=_.get(this.answer,"attachment.payload.text",'');
+    newAnswer.attachment.payload.buttons=_.get(this.answer,"attachment.payload.buttons",[]);
+
     this.answer=newAnswer;
   }
 

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SmartChatModel } from "../../model/smart-chat-model.service";
 import { BotConfigRepository } from "../../model/bot-config-repository.model";
 import { Topic } from '../../model/topic.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import * as _ from "lodash";
 
 @Component({
   selector: 'topic-name',
@@ -13,21 +14,34 @@ export class TopicNameComponent implements OnInit {
 
   botConfig: BotConfigRepository;
   topic: Topic;
+  messageSubscription;
+
   constructor(
     private smartChatModel: SmartChatModel,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+      this.messageSubscription=this.smartChatModel.receiveMessage().subscribe( message =>{
+        if(message=="save-bot"){
+          this.smartChatModel.sendTopic(this.topic);
+        }
+      });
+    }
 
   ngOnInit() {
-    //TODO : retreive the topic from the topic array of current bot
-    if (this.smartChatModel.currentTopic){
-      this.topic = this.smartChatModel.currentTopic;
+    if(!_.get(this.smartChatModel,"currentTopic")){
+      this.smartChatModel.currentTopic={name:''};
     }
-    else {
-      this.topic = { name: '' };
-    }
+    this.topic = this.smartChatModel.currentTopic;
+
+
     console.log("Current Topic: " + JSON.stringify(this.topic));
     console.log("Current Bot: " + JSON.stringify(this.smartChatModel.currentBot));
+  }
+
+  ngOnDestroy() {
+    if (this.messageSubscription) {
+       this.messageSubscription.unsubscribe();
+    }
   }
 
   gotoNewTopic() {
@@ -36,9 +50,7 @@ export class TopicNameComponent implements OnInit {
   }
 
   gotoTopicQuestions() {
-    //TODO : update the topic and push
     this.smartChatModel.sendTopic(this.topic);
-    this.smartChatModel.currentTopic = this.topic;
     this.smartChatModel.currentBot.stepConfig = 'editQuestions';
     this.router.navigate(['../topic-questions'], { relativeTo: this.route });
   }
