@@ -1,35 +1,5 @@
-<div *ngFor="let button of smartChatModel.currentButtons; let i = index">
-  <div class="input_container">
-    <div class="input_fields row">
-      <div class="form_control clearfix col-md-6 col-sm-12">
-        <label>Button Type</label>
-        <select class="round_field" [(ngModel)]="button.type">
-          <option value="" selected>Please Select</option>
-          <option value="url">URL Button</option>
-          <option value="postback">Postback Button</option>
-        </select>
-      </div>
-      <div class="form_control clearfix col-md-6 col-sm-12" *ngIf="button.type!==''">
-        <label>Button Title</label>
-        <input type="text" class="round_field" placeholder="Enter button title"[(ngModel)]="button.title">
-      </div>
-    </div>
-    <div class="input_fields row">
-      <div class="form_control clearfix col-md-6 col-sm-12" *ngIf="button.type==='url'">
-        <label>URL</label>
-        <input type="text" class="round_field" placeholder="Enter URL" [(ngModel)]="button.url">
-      </div>
-      <div class="form_control clearfix col-md-6 col-sm-12" *ngIf="button.type==='postback'">
-        <label>Text Postback</label>
-        <input type="text" class="round_field" placeholder="Enter text payload" [(ngModel)]="button.textPayload">
-      </div>
-      <div (click)="removeButton(i)" class="action_button col-md-6 col-sm-12" *ngIf="button.type!==''">
-        <img src="assets/images/delete.png">
-      </div>
-    </div>
-  </div>
+<div class="form_control clearfix">
+    <label>Response</label>
+    <input type="text" class="round_field" placeholder="Enter Your Response" [(ngModel)]="answer.attachment.payload.text" (keydown.enter)="submitAnswer()">
 </div>
-<div (click)="addButton()" class="action_button add_button">
-  <img src="assets/images/plus_icon.png">
-  <label>Add Button</label>
-</div>
+<buttons [buttons]="answer.attachment.payload.buttons"></buttons>

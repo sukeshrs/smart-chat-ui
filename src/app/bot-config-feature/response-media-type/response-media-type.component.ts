@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { SmartChatModel } from "../../model/smart-chat-model.service";
-import { Element } from "../../model/topic/element.model";
+import { Response } from '../../model/response.model';
 
 @Component({
   selector: 'response-media-type',
@@ -10,10 +10,10 @@ import { Element } from "../../model/topic/element.model";
 })
 export class ResponseMediaTypeComponent implements OnInit {
 
-  element: Element;
+  @Output() keydownEnter= new EventEmitter<Response>();
+  @Input() private answer: Response;
   navigationSubscription;
   constructor(
-    private smartChatModel: SmartChatModel,
     private route: ActivatedRoute,
     private router: Router) {
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -34,18 +34,28 @@ export class ResponseMediaTypeComponent implements OnInit {
   }
 
   initilizeInvites(){
-    if(!this.smartChatModel.currentElements || this.smartChatModel.currentElements.length == 0){
-      this.element={
-        media_type:'',
-        url:'',
-        buttons:[]
+    let newAnswer={
+      attachment:{
+        type:"",
+        payload:{
+          url:""
+        }
       }
-      this.smartChatModel.currentElements=[];
-      this.smartChatModel.currentElements.push(this.element);
     }
-    else{
-      this.element=this.smartChatModel.currentElements[0];
+    if(this.answer.attachment &&
+       this.answer.attachment.payload){
+         newAnswer.attachment.type=this.answer.attachment.type;
+         newAnswer.attachment.payload.url=this.answer.attachment.payload.url;
     }
+    this.answer=newAnswer;
+  }
+
+  submitAnswer(){
+    this.keydownEnter.emit(this.answer);
+  }
+
+  getAnswer(){
+    return this.answer;
   }
 
 }
