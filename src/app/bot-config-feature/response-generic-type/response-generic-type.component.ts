@@ -3,6 +3,7 @@ import { Input } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Response } from '../../model/response.model';
 import { Element } from '../../model/topic/element.model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'response-generic-type',
@@ -53,6 +54,10 @@ export class ResponseGenericTypeComponent implements OnInit {
       }
     }
     newAnswer.attachment.payload.elements.push(newElement);
+
+    const elements = _.get(this.answer,"attachment.payload.elements");
+    console.log("elements" + elements);
+
     if(this.answer.attachment.payload.elements &&
        this.answer.attachment.payload.elements.length>0){
          newAnswer.attachment.payload.elements=this.answer.attachment.payload.elements;
