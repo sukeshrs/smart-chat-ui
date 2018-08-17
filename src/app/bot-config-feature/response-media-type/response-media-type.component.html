@@ -1,14 +1,14 @@
-<div class="form_control clearfix">
-  <label>Media Type</label>
-  <select class="round_field" [(ngModel)]="element.media_type">
-    <option value="">Please Select</option>
-    <option value="video">Video</option>
-    <option value="image">Image</option>
-  </select>
+<div class="input_container">
+  <div class="form_control clearfix">
+    <label>Media Type</label>
+    <select class="round_field" [(ngModel)]="answer.attachment.type">
+      <option value="">Please Select</option>
+      <option value="video">Video</option>
+      <option value="image">Image</option>
+    </select>
+  </div>
+  <div class="form_control clearfix">
+      <label>Media</label>
+      <input type="text" class="round_field" [(ngModel)]="answer.attachment.payload.url" (keydown.enter)="submitAnswer()" placeholder="URL">
+  </div>
 </div>
-<div class="form_control clearfix">
-    <label>Media</label>
-    <input type="text" class="round_field" [(ngModel)]="element.url" placeholder="URL">
-</div>
-
-<response-button-type></response-button-type>

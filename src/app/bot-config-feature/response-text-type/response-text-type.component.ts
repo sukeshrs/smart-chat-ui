@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Input, Output, EventEmitter } from '@angular/core';
-import { SmartChatModel } from "../../model/smart-chat-model.service";
+import { Response } from '../../model/response.model';
 
 @Component({
   selector: 'response-text-type',
@@ -9,16 +9,23 @@ import { SmartChatModel } from "../../model/smart-chat-model.service";
 })
 export class ResponseTextTypeComponent implements OnInit {
 
-  @Output() keydownEnter= new EventEmitter<string>();
-  @Input() public textResponse: string;
-  constructor(private smartChatModel: SmartChatModel) { }
+  @Output() keydownEnter= new EventEmitter<Response>();
+  @Input() private answer: Response;
+  constructor() { }
 
   ngOnInit() {
-
+    if(!this.answer.text){
+      this.answer.text=""
+    }
+    this.answer.attachment=null;
   }
 
-  submitResponse(){
-    this.keydownEnter.emit(this.textResponse);
+  submitAnswer(){
+    this.keydownEnter.emit(this.answer);
+  }
+
+  getAnswer(){
+    return this.answer;
   }
 
 }
