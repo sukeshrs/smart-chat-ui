@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { Input, Output, EventEmitter } from '@angular/core';
-import { Topic } from '../../model/topic.model';
-import { Button } from '../../model/topic/button.model';
-import { SmartChatModel } from "../../model/smart-chat-model.service";
+import { Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { ButtonsComponent } from '../buttons/buttons.component';
+import { Response } from '../../model/response.model';
 
 @Component({
   selector: 'response-button-type',
@@ -12,10 +11,12 @@ import { SmartChatModel } from "../../model/smart-chat-model.service";
 })
 export class ResponseButtonTypeComponent implements OnInit {
 
+  @Output() keydownEnter= new EventEmitter<Response>();
+  @Input() private answer: Response;
+  @ViewChild(ButtonsComponent) private buttonsComponent: ButtonsComponent;
   navigationSubscription;
 
   constructor(
-    private smartChatModel: SmartChatModel,
     private route: ActivatedRoute,
     private router: Router) {
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -36,24 +37,31 @@ export class ResponseButtonTypeComponent implements OnInit {
   }
 
   initilizeInvites(){
-    if(!this.smartChatModel.currentButtons){
-      this.smartChatModel.currentButtons = [];
+    let newAnswer={
+      attachment:{
+        type:"template",
+        payload:{
+          template_type: "button",
+          text:"",
+          buttons:[],
+          elements:[]
+        }
+      }
     }
-  }
-
-  addButton(){
-    let newButton: Button;
-    newButton = {
-      type: "",
-      title: "",
-      url:"",
-      payload:""
+    if(this.answer.attachment &&
+       this.answer.attachment.payload){
+         newAnswer.attachment.payload.text=this.answer.attachment.payload.text;
+         newAnswer.attachment.payload.buttons=this.answer.attachment.payload.buttons;
     }
-    this.smartChatModel.currentButtons.push(newButton);
+    this.answer=newAnswer;
   }
 
-  removeButton(i: number){
-    this.smartChatModel.currentButtons.splice(i,1);
+  submitAnswer(){
+    this.answer.attachment.payload.buttons=this.buttonsComponent.getButtons();
+    this.keydownEnter.emit(this.answer);
   }
 
+  getAnswer(){
+    return this.answer;
+  }
 }

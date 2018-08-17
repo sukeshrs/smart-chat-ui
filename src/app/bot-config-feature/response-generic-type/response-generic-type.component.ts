@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Input } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { SmartChatModel } from "../../model/smart-chat-model.service";
+import { Response } from '../../model/response.model';
+import { Element } from '../../model/topic/element.model';
 
 @Component({
   selector: 'response-generic-type',
@@ -10,9 +12,9 @@ import { SmartChatModel } from "../../model/smart-chat-model.service";
 export class ResponseGenericTypeComponent implements OnInit {
 
   navigationSubscription;
+  @Input() private answer: Response;
 
   constructor(
-    public smartChatModel: SmartChatModel,
     private route: ActivatedRoute,
     private router: Router) {
       this.navigationSubscription = this.router.events.subscribe((e: any) => {
@@ -32,6 +34,34 @@ export class ResponseGenericTypeComponent implements OnInit {
     }
   }
 
-  initilizeInvites(){}
+  initilizeInvites(){
+    let newElement: Element;
+    newElement = {
+      url:"",
+      title:"",
+      subtitle:"",
+      buttons:[]
+    }
+
+    let newAnswer={
+      attachment:{
+        type:"template",
+        payload:{
+          template_type:"generic",
+          elements:[]
+        }
+      }
+    }
+    newAnswer.attachment.payload.elements.push(newElement);
+    if(this.answer.attachment.payload.elements &&
+       this.answer.attachment.payload.elements.length>0){
+         newAnswer.attachment.payload.elements=this.answer.attachment.payload.elements;
+    }
+    this.answer=newAnswer;
+  }
+
+  getAnswer(){
+    return this.answer;
+  }
 
 }

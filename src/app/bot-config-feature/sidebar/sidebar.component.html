@@ -33,6 +33,9 @@
       <div class="btn_block">
         <a class="btn-primary" (click)="publishBot()">Publish</a>
       </div>
+      <div class="btn_block">
+        <a class="btn-primary" (click)="saveBot()">Save</a>
+      </div>
     </div>
       <div class="help_box">
         <div class="sorting_link">
@@ -49,7 +52,7 @@
             </div>
       </div>
   </div>
- 
+
 
   <div  *ngIf ="publishLoading" class="publish-overlay">
     <div class="publish-text">Publishing! Please wait....</div>

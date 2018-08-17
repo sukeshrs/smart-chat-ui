@@ -16,6 +16,7 @@ import { ResponseMediaTypeComponent } from './response-media-type/response-media
 import { ResponseTextTypeComponent } from './response-text-type/response-text-type.component';
 import { BotConfigRoutingModule } from './bot-config-routing.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { ButtonsComponent } from './buttons/buttons.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     ResponseMediaTypeComponent,
     ResponseTextTypeComponent,
     BreadcrumbsComponent,
+    ButtonsComponent,
   ],
   imports: [
     CommonModule,
