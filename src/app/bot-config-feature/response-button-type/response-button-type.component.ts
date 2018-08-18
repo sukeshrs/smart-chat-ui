@@ -44,8 +44,7 @@ export class ResponseButtonTypeComponent implements OnInit {
         payload:{
           template_type: "button",
           text:"",
-          buttons:[],
-          elements:[]
+          buttons:[]
         }
       }
     }
