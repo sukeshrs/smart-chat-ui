@@ -1,5 +1,5 @@
 <div class="form_control clearfix">
-    <label>Response</label>
+    <label>Text</label>
     <input type="text" class="round_field" placeholder="Enter Your Response" [(ngModel)]="answer.attachment.payload.text" (keydown.enter)="submitAnswer()">
 </div>
 <buttons [buttons]="answer.attachment.payload.buttons"></buttons>

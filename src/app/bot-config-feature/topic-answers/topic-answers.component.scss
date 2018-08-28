@@ -9,15 +9,14 @@
     //max-width: 11em;
     width: 100%;
   }
-  select{
-    max-width: 11em;
-    width: 100%;
-  }
 }
 
 ::ng-deep .input_container {
   margin-top: 1em;
   margin-bottom: 1em;
+  label{
+    max-width: 5em;
+  }
 }
 ::ng-deep .add_button{
   margin-left: 1em;

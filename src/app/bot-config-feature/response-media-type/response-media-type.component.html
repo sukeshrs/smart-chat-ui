@@ -1,6 +1,6 @@
 <div class="input_container">
   <div class="form_control clearfix">
-    <label>Media Type</label>
+    <label>Type</label>
     <select class="round_field" [(ngModel)]="answer.attachment.type">
       <option value="">Please Select</option>
       <option value="video">Video</option>
@@ -8,7 +8,7 @@
     </select>
   </div>
   <div class="form_control clearfix">
-      <label>Media</label>
+      <label>URL</label>
       <input type="text" class="round_field" [(ngModel)]="answer.attachment.payload.url" (keydown.enter)="submitAnswer()" placeholder="URL">
   </div>
 </div>
