@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 export class ResponseButtonTypeComponent implements OnInit {
 
   @Output() keydownEnter= new EventEmitter<Response>();
-  @Input() private answer: Response;
+  @Input() answer: Response;
   @ViewChild(ButtonsComponent) private buttonsComponent: ButtonsComponent;
   navigationSubscription;
 

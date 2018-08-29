@@ -8,7 +8,7 @@ import { Button } from '../../model/topic/button.model';
 })
 export class ButtonsComponent implements OnInit {
 
-  @Input() private buttons: Button[];
+  @Input() buttons: Button[];
   constructor() { }
 
   ngOnInit() {
