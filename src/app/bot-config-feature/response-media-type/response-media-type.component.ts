@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 export class ResponseMediaTypeComponent implements OnInit {
 
   @Output() keydownEnter= new EventEmitter<Response>();
-  @Input() private answer: Response;
+  @Input() answer: Response;
   navigationSubscription;
 
   constructor(

@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 export class ResponseGenericTypeComponent implements OnInit {
 
   navigationSubscription;
-  @Input() private answer: Response;
+  @Input() answer: Response;
 
   constructor(
     private route: ActivatedRoute,

@@ -10,7 +10,7 @@ import { Response } from '../../model/response.model';
 export class ResponseTextTypeComponent implements OnInit {
 
   @Output() keydownEnter= new EventEmitter<Response>();
-  @Input() private answer: Response;
+  @Input() answer: Response;
   constructor() { }
 
   ngOnInit() {
