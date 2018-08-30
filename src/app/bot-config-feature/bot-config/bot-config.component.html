@@ -33,7 +33,7 @@
         <div class="drag_fields_block" ccMovableArea>
 
           <div data-id="{{ i }}" class="draggable_ele generate_box" ccMovable
-            [class.topic-min]="topicBoxesMin[i]" id="topic_box_{{ i }}" *ngFor="let topic of topicList; let i = index">
+            [class.topic-min]="topicBoxesMin[i]" [class.current_topic]="this.smartChatModel.currentTopic==topic" id="topic_box_{{ i }}" *ngFor="let topic of topicList; let i = index">
 
             <span class="action-wrap">
               <a href="javascript:void(0);" (click)="duplicateTopic(topic)">

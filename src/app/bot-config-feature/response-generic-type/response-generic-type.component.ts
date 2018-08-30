@@ -49,6 +49,7 @@ export class ResponseGenericTypeComponent implements OnInit {
         type:"template",
         payload:{
           template_type:"generic",
+          sharable: "false",
           elements:[]
         }
       }
