@@ -5,19 +5,19 @@
       <span class="checkmark"></span>
     </label>
   </div>
-  <div *ngIf="answer.attachment.payload.elements.length < 10">
+  <!-- <div *ngIf="answer.attachment.payload.elements.length < 10">
     <div (click)="addElement()" class="action_button add_button">
       <img src="assets/images/plus_icon.png">
       <label>Add Element</label>
     </div>
-  </div>
+  </div> -->
 </div>
 <div *ngFor="let element of answer.attachment.payload.elements; let i = index">
   <div class="input_container">
     <div class="input_fields row">
       <div class="form_control clearfix col-md-6 col-sm-12">
           <label>Image URL</label>
-          <input [(ngModel)]="element.url" type="text" class="round_field" placeholder="URL">
+          <input [(ngModel)]="element.image_url" type="text" class="round_field" placeholder="URL">
       </div>
       <div class="form_control clearfix col-md-6 col-sm-12">
           <label>Title</label>
