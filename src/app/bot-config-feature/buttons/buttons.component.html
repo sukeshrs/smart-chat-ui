@@ -33,7 +33,7 @@
     </div>
   </div>
 </div>
-<div>
+<div *ngIf="buttons.length < 3">
   <div (click)="addButton()" class="action_button add_button">
     <img src="assets/images/plus_icon.png">
     <label>Add Button</label>

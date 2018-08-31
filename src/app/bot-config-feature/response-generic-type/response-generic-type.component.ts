@@ -49,6 +49,7 @@ export class ResponseGenericTypeComponent implements OnInit {
         type:"template",
         payload:{
           template_type:"generic",
+          sharable: "false",
           elements:[]
         }
       }
@@ -64,6 +65,17 @@ export class ResponseGenericTypeComponent implements OnInit {
 
   getAnswer(){
     return this.answer;
+  }
+
+  addElement(){
+    let newElement: Element;
+    newElement = {
+      url:"",
+      title:"",
+      subtitle:"",
+      buttons:[]
+    }
+    this.answer.attachment.payload.elements.push(newElement);
   }
 
 }
