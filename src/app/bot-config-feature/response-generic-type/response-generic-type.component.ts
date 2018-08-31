@@ -38,7 +38,7 @@ export class ResponseGenericTypeComponent implements OnInit {
   initilizeInvites(){
     let newElement: Element;
     newElement = {
-      url:"",
+      image_url:"",
       title:"",
       subtitle:"",
       buttons:[]
@@ -70,7 +70,7 @@ export class ResponseGenericTypeComponent implements OnInit {
   addElement(){
     let newElement: Element;
     newElement = {
-      url:"",
+      image_url:"",
       title:"",
       subtitle:"",
       buttons:[]
