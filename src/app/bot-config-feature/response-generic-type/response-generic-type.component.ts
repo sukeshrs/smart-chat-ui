@@ -67,4 +67,15 @@ export class ResponseGenericTypeComponent implements OnInit {
     return this.answer;
   }
 
+  addElement(){
+    let newElement: Element;
+    newElement = {
+      url:"",
+      title:"",
+      subtitle:"",
+      buttons:[]
+    }
+    this.answer.attachment.payload.elements.push(newElement);
+  }
+
 }
