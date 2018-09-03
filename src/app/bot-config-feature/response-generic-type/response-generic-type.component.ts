@@ -14,6 +14,7 @@ export class ResponseGenericTypeComponent implements OnInit {
 
   navigationSubscription;
   @Input() answer: Response;
+  showControls: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,6 +62,8 @@ export class ResponseGenericTypeComponent implements OnInit {
       newAnswer.attachment.payload.elements=[newElement];
     }
     this.answer=newAnswer;
+    this.showControls=this.answer.attachment.payload.elements.length > 1;
+
   }
 
   getAnswer(){
@@ -76,6 +79,7 @@ export class ResponseGenericTypeComponent implements OnInit {
       buttons:[]
     }
     this.answer.attachment.payload.elements.push(newElement);
+    this.showControls=this.answer.attachment.payload.elements.length > 1;
   }
 
 }

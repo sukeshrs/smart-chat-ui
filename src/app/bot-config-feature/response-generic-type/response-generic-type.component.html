@@ -5,17 +5,17 @@
       <span class="checkmark"></span>
     </label>
   </div>
-  <!-- <div *ngIf="answer.attachment.payload.elements.length < 10">
+  <div *ngIf="answer.attachment.payload.elements.length < 10">
     <div (click)="addElement()" class="action_button add_button">
       <img src="assets/images/plus_icon.png">
       <label>Add Element</label>
     </div>
-  </div> -->
+  </div>
 </div>
-<carousel #carousel="carousel" [showControls]="true">
+<carousel #carousel="carousel" class="carousel" [showControls]="showControls">
   <ng-container *ngFor="let element of answer.attachment.payload.elements; let i = index">
     <ng-container *carouselItem>
-      <div>
+      <div class="generic_content">
         <div class="input_container">
           <div class="input_fields row">
             <div class="form_control clearfix col-md-6 col-sm-12">

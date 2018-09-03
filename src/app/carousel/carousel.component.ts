@@ -22,11 +22,12 @@ export class CarouselComponent implements AfterViewInit {
   private itemWidth : number;
   private currentSlide = 0;
   carouselWrapperStyle = {}
+  carouselItemStyle = {}
 
   next() {
     if( this.currentSlide + 1 === this.items.length ) return;
     this.currentSlide = (this.currentSlide + 1) % this.items.length;
-    const offset = this.currentSlide * this.itemWidth;
+    const offset = this.currentSlide * (this.itemWidth);
     const myAnimation : AnimationFactory = this.buildAnimation(offset);
     this.player = myAnimation.create(this.carousel.nativeElement);
     this.player.play();
@@ -56,8 +57,12 @@ export class CarouselComponent implements AfterViewInit {
     // For some reason only here I need to add setTimeout, in my local env it's working without this.
     setTimeout(() => {
       this.itemWidth = this.itemsElements.first.nativeElement.getBoundingClientRect().width;
+      // console.log(this.itemsElements.first.nativeElement.getBoundingClientRect());
       this.carouselWrapperStyle = {
-        width: `${this.itemWidth}px`
+        width: `${this.items.length * 100}%`
+      }
+      this.carouselItemStyle = {
+        width: `${100 / this.items.length}%`
       }
     });
 
