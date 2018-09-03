@@ -12,7 +12,7 @@
     </div>
   </div>
 </div>
-<carousel #carousel="carousel" class="carousel" [showControls]="showControls">
+<carousel #carousel="carousel" class="carousel" [showControls]="showControls" [itemsLength]="elementsLength">
   <ng-container *ngFor="let element of answer.attachment.payload.elements; let i = index">
     <ng-container *carouselItem>
       <div class="generic_content">
@@ -35,6 +35,12 @@
           </div>
         </div>
         <buttons [buttons]="element.buttons"></buttons>
+        <div (click)="removeElement(i)" class="action_button">
+          <img src="assets/images/delete.png">
+          <label>Remove Element</label>
+        </div>
+        ITEMS ELEMENTS {{itemsElements}}
+        ITEMS {{items}}
       </div>
     </ng-container>
   </ng-container>

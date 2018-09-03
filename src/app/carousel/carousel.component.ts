@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ContentChildren, Directive, ElementRef, Input, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ContentChildren, Directive, ElementRef, Input, QueryList, TemplateRef } from '@angular/core';
+import { AfterViewInit, OnChanges, ViewChild, ViewChildren, SimpleChanges} from '@angular/core';
 import { animate, AnimationBuilder, AnimationFactory, AnimationPlayer, style } from '@angular/animations';
 import { CarouselItemDirective } from './carousel-item.directive';
 import { CarouselItemElement } from './carousel-item-element.directive';
@@ -10,13 +11,14 @@ import { CarouselItemElement } from './carousel-item-element.directive';
   styleUrls: ['./carousel.component.scss']
 })
 
-export class CarouselComponent implements AfterViewInit {
+export class CarouselComponent implements OnChanges, AfterViewInit {
 
   @ContentChildren(CarouselItemDirective) items : QueryList<CarouselItemDirective>;
   @ViewChildren(CarouselItemElement, { read: ElementRef }) private itemsElements : QueryList<ElementRef>;
   @ViewChild('carousel') private carousel : ElementRef;
   @Input() timing = '250ms ease-in';
   @Input() showControls = true;
+  @Input() itemsLength: number;
 
   private player : AnimationPlayer;
   private itemWidth : number;
@@ -25,12 +27,14 @@ export class CarouselComponent implements AfterViewInit {
   carouselItemStyle = {}
 
   next() {
+    this.itemWidth=this.itemsElements.first.nativeElement.getBoundingClientRect().width;
     if( this.currentSlide + 1 === this.items.length ) return;
     this.currentSlide = (this.currentSlide + 1) % this.items.length;
     const offset = this.currentSlide * (this.itemWidth);
     const myAnimation : AnimationFactory = this.buildAnimation(offset);
     this.player = myAnimation.create(this.carousel.nativeElement);
     this.player.play();
+    console.log("next items.length: " +  this.items.length)
   }
 
   private buildAnimation( offset ) {
@@ -40,6 +44,7 @@ export class CarouselComponent implements AfterViewInit {
   }
 
   prev() {
+    this.itemWidth=this.itemsElements.first.nativeElement.getBoundingClientRect().width;
     if( this.currentSlide === 0 ) return;
 
     this.currentSlide = ((this.currentSlide - 1) + this.items.length) % this.items.length;
@@ -48,23 +53,34 @@ export class CarouselComponent implements AfterViewInit {
     const myAnimation : AnimationFactory = this.buildAnimation(offset);
     this.player = myAnimation.create(this.carousel.nativeElement);
     this.player.play();
+    console.log("prev items.length: " +  this.items.length)
   }
 
   constructor( private builder : AnimationBuilder ) {
   }
 
   ngAfterViewInit() {
-    // For some reason only here I need to add setTimeout, in my local env it's working without this.
     setTimeout(() => {
-      this.itemWidth = this.itemsElements.first.nativeElement.getBoundingClientRect().width;
-      // console.log(this.itemsElements.first.nativeElement.getBoundingClientRect());
-      this.carouselWrapperStyle = {
-        width: `${this.items.length * 100}%`
-      }
-      this.carouselItemStyle = {
-        width: `${100 / this.items.length}%`
-      }
+      console.log("ngAfterViewInit");
+      this.updateItems();
     });
 
   }
+
+  ngOnChanges(changes: SimpleChanges){
+      console.log("ngOnChanges");
+      this.updateItems();
+
+  }
+
+  updateItems(){
+    //TODO
+    if(this.itemsElements){
+      this.carouselWrapperStyle = {
+        width: `${this.itemsLength * 100}%`
+      }
+    }
+
+  }
+
 }
