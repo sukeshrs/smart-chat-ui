@@ -15,8 +15,7 @@ export class ResponseGenericTypeComponent implements OnInit {
   navigationSubscription;
   @Input() answer: Response;
   showControls: boolean;
-  elementsLength: number;
-
+  currentElement: number;
   constructor(
     private route: ActivatedRoute,
     private router: Router) {
@@ -62,10 +61,9 @@ export class ResponseGenericTypeComponent implements OnInit {
     else{
       newAnswer.attachment.payload.elements=[newElement];
     }
-
+    this.currentElement = 0;
     this.answer=newAnswer;
     this.showControls=this.answer.attachment.payload.elements.length > 1;
-    this.elementsLength=this.answer.attachment.payload.elements.length;
   }
 
   getAnswer(){
@@ -82,11 +80,24 @@ export class ResponseGenericTypeComponent implements OnInit {
     }
     this.answer.attachment.payload.elements.push(newElement);
     this.showControls=this.answer.attachment.payload.elements.length > 1;
-    this.elementsLength+=1;
+    this.currentElement=this.answer.attachment.payload.elements.length - 1;
   }
+
   removeElement(i: number){
     this.answer.attachment.payload.elements.splice(i,1);
-    this.elementsLength-=1;
+    this.currentElement=0
+  }
+
+  gotoElement(elementPosition: number){
+    this.currentElement=elementPosition;
+  }
+
+  nextElement(){
+    this.currentElement+=1;
+  }
+
+  prevElement(){
+    this.currentElement-=1;
   }
 
 }
