@@ -5,31 +5,52 @@
       <span class="checkmark"></span>
     </label>
   </div>
-  <!-- <div *ngIf="answer.attachment.payload.elements.length < 10">
+  <div *ngIf="answer.attachment.payload.elements.length < 10">
     <div (click)="addElement()" class="action_button add_button">
       <img src="assets/images/plus_icon.png">
       <label>Add Element</label>
     </div>
-  </div> -->
-</div>
-<div *ngFor="let element of answer.attachment.payload.elements; let i = index">
-  <div class="input_container">
-    <div class="input_fields row">
-      <div class="form_control clearfix col-md-6 col-sm-12">
-          <label>Image URL</label>
-          <input [(ngModel)]="element.image_url" type="text" class="round_field" placeholder="URL">
-      </div>
-      <div class="form_control clearfix col-md-6 col-sm-12">
-          <label>Title</label>
-          <input [(ngModel)]="element.title" type="text" class="round_field" placeholder="Title">
-      </div>
-    </div>
-    <div class="input_fields row">
-      <div class="form_control clearfix col-md-6 col-sm-12">
-          <label>Subtitle</label>
-          <input [(ngModel)]="element.subtitle" type="text" class="round_field" placeholder="Subtitle">
-      </div>
-    </div>
   </div>
-  <buttons [buttons]="element.buttons"></buttons>
+</div>
+<carousel #carousel="carousel" [ngClass]="{'carousel' : answer.attachment.payload.elements.length > 1}" [currentSlide]="currentElement" [itemsLength]="answer.attachment.payload.elements.length">
+  <ng-container *ngFor="let element of answer.attachment.payload.elements; let i = index">
+    <ng-container *carouselItem>
+      <div class="generic_content">
+        <div class="input_container">
+          <div class="input_fields row">
+            <div class="form_control clearfix col-md-6 col-sm-12">
+                <label>Image URL</label>
+                <input [(ngModel)]="element.image_url" type="text" class="round_field" placeholder="URL">
+            </div>
+            <div class="form_control clearfix col-md-6 col-sm-12">
+                <label>Title</label>
+                <input [(ngModel)]="element.title" type="text" class="round_field" placeholder="Title">
+            </div>
+          </div>
+          <div class="input_fields row">
+            <div class="form_control clearfix col-md-6 col-sm-12">
+                <label>Subtitle</label>
+                <input [(ngModel)]="element.subtitle" type="text" class="round_field" placeholder="Subtitle">
+            </div>
+          </div>
+        </div>
+        <buttons [buttons]="element.buttons"></buttons>
+        <div (click)="removeElement(i)" class="action_button">
+          <img src="assets/images/delete.png">
+          <label>Remove Element</label>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</carousel>
+<div *ngIf="answer.attachment.payload.elements.length > 1" class="navigation_buttons row">
+  <div *ngIf="currentElement > 0" (click)="prevElement()" class="action_button navigation_arrow">
+    <img src="assets/images/arrow-left.png">
+  </div>
+  <div *ngFor="let element of answer.attachment.payload.elements; let i = index">
+    <span [ngClass]="{'current_dot' : currentElement == i}" (click)="gotoElement(i)" class="dot"></span>
+  </div>
+  <div *ngIf="currentElement < answer.attachment.payload.elements.length - 1" (click)="nextElement()" class="action_button navigation_arrow">
+    <img src="assets/images/arrow-right.png">
+  </div>
 </div>

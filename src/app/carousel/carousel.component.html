@@ -1,0 +1,7 @@
+<section (window:resize)="updateItems()" class="carousel-wrapper" [ngStyle]="carouselWrapperStyle" *ngIf="itemsElements">
+  <ul class="carousel-inner" #carousel>
+    <li *ngFor="let item of items;" class="carousel-item">
+      <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+    </li>
+  </ul>
+</section>

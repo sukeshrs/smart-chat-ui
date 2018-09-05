@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BotConfigComponent } from './bot-config/bot-config.component';
 import { TopicQuestionsComponent } from './topic-questions/topic-questions.component';
 import { NewTopicComponent } from './new-topic/new-topic.component';
@@ -17,6 +19,9 @@ import { ResponseTextTypeComponent } from './response-text-type/response-text-ty
 import { BotConfigRoutingModule } from './bot-config-routing.module';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ButtonsComponent } from './buttons/buttons.component';
+import { CarouselComponent } from '../carousel/carousel.component';
+import { CarouselItemDirective } from '../carousel/carousel-item.directive';
+import { CarouselItemElement } from '../carousel/carousel-item-element.directive';
 
 @NgModule({
   declarations: [
@@ -33,12 +38,17 @@ import { ButtonsComponent } from './buttons/buttons.component';
     ResponseTextTypeComponent,
     BreadcrumbsComponent,
     ButtonsComponent,
+    CarouselComponent,
+    CarouselItemDirective,
+    CarouselItemElement
   ],
   imports: [
     CommonModule,
     DraggableModule,
     FormsModule,
-    BotConfigRoutingModule
+    BotConfigRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule
   ],
   providers: [
     BotConfigService
