@@ -9,6 +9,15 @@
   <div class="row clearfix flex-column-reverse flex-md-row">
 
     <div class="col-sm-12 col-md-8">
+      <!-- <a href="javacript:void(0);" *ngIf="!topicSectionMin" class="toggle_btn" id="chatbtn" (click)="toggleTopicSection()">
+        <img src="assets/images/minus.png" />
+      </a>
+      <a href="javacript:void(0);" *ngIf="topicSectionMin" class="toggle_btn" id="chatbtn" (click)="toggleTopicSection()">
+        <img src="assets/images/plus.png" />
+      </a> -->
+
+      <h2 *ngIf="!smartChatModel.currentTopic" class="section_heading">Create Topic</h2>
+      <h2 *ngIf="smartChatModel.currentTopic" class="section_heading">Topic: {{smartChatModel.currentTopic.name}}</h2>
       <breadcrumbs (clickBreadCrumb)="gotoTopicStepConfig($event)"></breadcrumbs>
       <router-outlet></router-outlet>
     </div>
@@ -23,14 +32,17 @@
 
   <div class="row clearfix mt-2">
     <div class="col-sm-12">
-      <div class="inside_box shadow_box chat_box" style="position: relative;">
-        <a href="javascript:void(0);" class="toggle_btn" id="chatbtn" onclick="toggle_chat_area(this);">
+      <div class="inside_box shadow_box chat_box" [class.chat_small]="topicSectionMin" style="position: relative;">
+        <a href="javacript:void(0);" *ngIf="!topicSectionMin" class="toggle_btn" id="chatbtn" (click)="toggleTopicSection()">
           <img src="assets/images/minus.png" />
+        </a>
+        <a href="javacript:void(0);" *ngIf="topicSectionMin" class="toggle_btn" id="chatbtn" (click)="toggleTopicSection()">
+          <img src="assets/images/plus.png" />
         </a>
 
         <h2 class="section_heading">Your Topics</h2>
 
-        <div class="drag_fields_block" ccMovableArea>
+        <div class="drag_fields_block" [class.hide]="topicSectionMin" ccMovableArea>
 
           <div data-id="{{ i }}" class="draggable_ele generate_box" ccMovable
             [class.topic-min]="topicBoxesMin[i]" [class.current_topic]="this.smartChatModel.currentTopic==topic" id="topic_box_{{ i }}" *ngFor="let topic of topicList; let i = index">

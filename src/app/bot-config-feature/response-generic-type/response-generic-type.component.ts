@@ -14,8 +14,8 @@ export class ResponseGenericTypeComponent implements OnInit {
 
   navigationSubscription;
   @Input() answer: Response;
-  showControls: boolean;
   currentElement: number;
+  isCarousel: boolean;
   constructor(
     private route: ActivatedRoute,
     private router: Router) {
@@ -63,7 +63,7 @@ export class ResponseGenericTypeComponent implements OnInit {
     }
     this.currentElement = 0;
     this.answer=newAnswer;
-    this.showControls=this.answer.attachment.payload.elements.length > 1;
+    this.isCarousel = this.answer.attachment.payload.elements.length > 1;
   }
 
   getAnswer(){
@@ -79,12 +79,13 @@ export class ResponseGenericTypeComponent implements OnInit {
       buttons:[]
     }
     this.answer.attachment.payload.elements.push(newElement);
-    this.showControls=this.answer.attachment.payload.elements.length > 1;
+    this.isCarousel=this.answer.attachment.payload.elements.length > 1;
     this.currentElement=this.answer.attachment.payload.elements.length - 1;
   }
 
   removeElement(i: number){
     this.answer.attachment.payload.elements.splice(i,1);
+    this.isCarousel = this.answer.attachment.payload.elements.length > 1;
     this.currentElement=0
   }
 
