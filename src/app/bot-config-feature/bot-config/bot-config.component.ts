@@ -16,6 +16,7 @@ export class BotConfigComponent implements OnInit {
   botConfig: BotConfigRepository;
   topicList: Topic[];
   topicBoxesMin: boolean[] = [];
+  topicSectionMin=false;
   topicSubscription;
 
   constructor(
@@ -94,6 +95,10 @@ export class BotConfigComponent implements OnInit {
 
   toggleTopicPopup(i){
     this.topicBoxesMin[i] = !this.topicBoxesMin[i];
+  }
+
+  toggleTopicSection(){
+    this.topicSectionMin= !this.topicSectionMin;
   }
 
   gotoTopicQuestions(topic: Topic){

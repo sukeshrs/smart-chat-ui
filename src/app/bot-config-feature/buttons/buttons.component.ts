@@ -9,6 +9,8 @@ import { Button } from '../../model/topic/button.model';
 export class ButtonsComponent implements OnInit {
 
   @Input() buttons: Button[];
+  @Input() buttonSection = false;
+  buttonSectionMin=false;
   constructor() { }
 
   ngOnInit() {
@@ -34,6 +36,10 @@ export class ButtonsComponent implements OnInit {
 
   removeButton(i: number){
     this.buttons.splice(i,1);
+  }
+
+  toggleButtonSection(){
+    this.buttonSectionMin=!this.buttonSectionMin;
   }
 
 }

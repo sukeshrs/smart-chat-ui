@@ -1,6 +1,24 @@
 
-<div *ngFor="let button of buttons; let i = index">
-  <div class="input_container">
+<div class="row button_section" *ngIf="buttonSection">
+  <div class="col-md-6 col-sm-6">
+    <a *ngIf="!buttonSectionMin" class="toggle_btn" (click)="toggleButtonSection()">
+      <img src="assets/images/minus.png" />
+    </a>
+    <a *ngIf="buttonSectionMin" href="javascript:void(0);" class="toggle_btn" (click)="toggleButtonSection()">
+      <img src="assets/images/plus.png" />
+    </a>
+    <label class="button_heading">Buttons</label>
+  </div>
+  <div *ngIf="buttons.length < 3" class="col-md-6 col-sm-6 float-right">
+    <div (click)="addButton()" class="action_button float-right">
+      <img src="assets/images/plus_icon.png">
+      <label>Add Button</label>
+    </div>
+  </div>
+
+</div>
+<div class="input_container row" *ngFor="let button of buttons; let i = index" [class.hide]="buttonSectionMin && buttonSection">
+  <div class="col-md-11 col-sm-11">
     <div class="input_fields row">
       <div class="form_control clearfix col-md-6 col-sm-12">
         <label>Type</label>
@@ -14,9 +32,6 @@
         <label>Title</label>
         <input type="text" class="round_field" placeholder="Enter button title"[(ngModel)]="button.title">
       </div>
-      <div (click)="removeButton(i)" class="action_button col-md-6 col-sm-12" *ngIf="button.type==''">
-        <img src="assets/images/delete.png">
-      </div>
     </div>
     <div class="input_fields row">
       <div class="form_control clearfix col-md-6 col-sm-12" *ngIf="button.type==='web_url'">
@@ -27,13 +42,13 @@
         <label>Postback</label>
         <input type="text" class="round_field" placeholder="Enter text payload" [(ngModel)]="button.payload">
       </div>
-      <div (click)="removeButton(i)" class="action_button col-md-6 col-sm-12" *ngIf="button.type!==''">
-        <img src="assets/images/delete.png">
-      </div>
     </div>
   </div>
+  <div (click)="removeButton(i)" class="action_button remove_button col-md-1 col-sm-1">
+    <img src="assets/images/minus_icon.png">
+  </div>
 </div>
-<div *ngIf="buttons.length < 3">
+<div *ngIf="buttons.length < 3 && !buttonSection">
   <div (click)="addButton()" class="action_button add_button">
     <img src="assets/images/plus_icon.png">
     <label>Add Button</label>

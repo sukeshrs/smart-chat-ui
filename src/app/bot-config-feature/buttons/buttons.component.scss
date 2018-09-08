@@ -5,3 +5,21 @@
 .add_button{
   margin-top: 1em;
 }
+.remove_button{
+  margin-top: 5px;
+}
+.button_heading{
+    font-size: 20px;
+    color: #2e9cca;
+    font-family: 'Alegreya', serif;
+    line-height: 44px;
+    background-image: url(../../../assets/images/border_bottom.png);
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.button_section{
+  .toggle_btn{
+    img{max-width: 1em;}
+  }
+}
