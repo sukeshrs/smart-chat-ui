@@ -1,0 +1,6 @@
+<h2 class="section_heading">Live Chat</h2>
+<div class="shadow_box">
+  <div *ngFor="let chatSet of conversationList">
+    <div [className]="chatSet[0] === 1 ? 'box sb_left' : 'box sb_right'">{{chatSet[1]}}</div>
+  </div>
+</div>

@@ -15,6 +15,7 @@ export class BotConfigComponent implements OnInit {
 
   botConfig: BotConfigRepository;
   topicList: Topic[];
+  topicConversationList: Topic[];
   topicBoxesMin: boolean[] = [];
   topicSectionMin=false;
   topicSubscription;
@@ -40,6 +41,7 @@ export class BotConfigComponent implements OnInit {
     //retrieve current bot and topics
     this.botConfig = this.smartChatModel.currentBot;
     this.topicList = this.smartChatModel.currentBot.value.topics;
+    this.topicConversationList = _.clone(this.topicList);
     console.log("Configuring Bot: " + JSON.stringify(this.botConfig));
   }
 
@@ -60,11 +62,13 @@ export class BotConfigComponent implements OnInit {
       this.topicList.push(topic);
       this.topicBoxesMin.push(false);
     }
+    this.topicConversationList = _.clone(this.topicList);
     this.saveCurrentChanges();
   }
 
   removeTopic(i){
     this.topicList.splice(i, 1);
+    this.topicConversationList = _.clone(this.topicList);
     this.saveCurrentChanges();
   }
 

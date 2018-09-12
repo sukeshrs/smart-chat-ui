@@ -22,6 +22,7 @@ import { ButtonsComponent } from './buttons/buttons.component';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { CarouselItemDirective } from '../carousel/carousel-item.directive';
 import { CarouselItemElement } from '../carousel/carousel-item-element.directive';
+import { ChatSimulatorComponent } from './chat-simulator/chat-simulator.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { CarouselItemElement } from '../carousel/carousel-item-element.directive
     ButtonsComponent,
     CarouselComponent,
     CarouselItemDirective,
-    CarouselItemElement
+    CarouselItemElement,
+    ChatSimulatorComponent
   ],
   imports: [
     CommonModule,
