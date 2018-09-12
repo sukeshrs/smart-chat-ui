@@ -1,6 +1,20 @@
 <h2 class="section_heading">Live Chat</h2>
 <div class="shadow_box">
-  <div *ngFor="let chatSet of conversationList">
-    <div [className]="chatSet[0] === 1 ? 'box sb_left' : 'box sb_right'">{{chatSet[1]}}</div>
+  <div class="chat_header">
+    <div class="chat_logo">
+      <img _ngcontent-c1="" class="likeordislike" src="assets/images/logo.png">
+      <span class="chat_bot_name">
+        Chat bot name
+      </span>
+    </div>
+  </div>
+
+  <div class="chat_scroll">
+    <div *ngFor="let chatSet of conversationList">
+      <div [className]="chatSet[0] === 1 ? 'box sb_left' : 'box sb_right'">{{chatSet[1]}}</div>
+    </div>
+  </div>
+  <div class="chat_footer">
+     question <input type="text" class="chat_input" disabled>
   </div>
 </div>
