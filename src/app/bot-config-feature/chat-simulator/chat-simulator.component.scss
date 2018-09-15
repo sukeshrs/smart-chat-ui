@@ -1,3 +1,12 @@
+
+.shadow_box {
+    // padding-top : 20px;
+    // padding-bottom : 20px;
+    // padding-left : 10px;
+    // padding-right : 10px;
+    padding : 0px;
+}
+
 .box {
     max-width: 18em;
     margin-top: 1em;
@@ -81,11 +90,12 @@
     .chat_logo {
         .chat_bot_name {
             padding-left: 5em;
+            color : white;
         }
     }
-    padding-bottom: .5em;
+    padding: .5em;
     margin-bottom: .5em;
-    border-bottom: 1px solid lightgray;
+    background-color: #272c4c;
 }
 
 .chat_input{
@@ -95,5 +105,7 @@
 
 .chat_footer {
   border-top : 1px solid lightgrey;
-  padding-top: .5em;
+  padding-top:1em;
+  padding-bottom:1em;
+  padding-left:.5em;
 }
