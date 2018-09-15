@@ -9,9 +9,19 @@
     </div>
   </div>
 
-  <div class="chat_scroll">
+    <div class="chat_scroll">
     <div *ngFor="let chatSet of conversationList">
       <div [className]="chatSet[0] === 1 ? 'box sb_left' : 'box sb_right'">{{chatSet[1]}}</div>
+
+      <!-- Template style for the button template -->
+      <div class="button-container" style="display: none">
+        <div class="button-text">What kind of cofee</div>
+        <div class="button-template">
+        <li><span class="button_item">Latte</span></li>
+        <li><span class="button_item">black</span></li>
+        <li><span class="button_item">pumkin spice</span></li>
+      </div>
+      </div>
     </div>
   </div>
   <div class="chat_footer">
