@@ -57,6 +57,7 @@ export class TopicQuestionsComponent implements OnInit {
   }
 
   public gotoTopicAnswers(){
+    this.addQuestion();
     this.smartChatModel.currentBot.stepConfig='editAnswers';
     this.router.navigate(['../topic-answers'], { relativeTo: this.route });
   }
