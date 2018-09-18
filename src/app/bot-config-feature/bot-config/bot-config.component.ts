@@ -28,9 +28,12 @@ export class BotConfigComponent implements OnInit {
 
   ngOnInit() {
     //Listener for topic from router outlet
-    this.topicSubscription=this.smartChatModel.receiveTopic().subscribe(topic => {
-      console.log("Router Outlet Topic : " + JSON.stringify(topic));
-      this.updateTopicList(topic);
+    this.topicSubscription=this.smartChatModel.receiveTopic().subscribe( data => {
+      console.log("Router Outlet Topic : " + JSON.stringify(data.topic));
+      this.updateTopicList(data.topic);
+      if(data.action == "save-bot"){
+        this.saveCurrentChanges();
+      }
     })
 
     //set topics to empty array if none found
@@ -63,13 +66,15 @@ export class BotConfigComponent implements OnInit {
       this.topicBoxesMin.push(false);
     }
     this.topicConversationList = _.clone(this.topicList);
-    this.saveCurrentChanges();
   }
 
   removeTopic(i){
-    this.topicList.splice(i, 1);
+    let removedTopic=this.topicList.splice(i, 1)[0];
     this.topicConversationList = _.clone(this.topicList);
     this.saveCurrentChanges();
+    if(removedTopic.name==this.smartChatModel.currentTopic.name){
+      this.gotoTopicStepConfig("Create Topic")
+    }
   }
 
   saveCurrentChanges(){
@@ -95,6 +100,7 @@ export class BotConfigComponent implements OnInit {
     }
     dupTopic.name=nameList.join("_");
     this.updateTopicList(dupTopic);
+    this.saveCurrentChanges();
   }
 
   toggleTopicPopup(i){
@@ -121,6 +127,7 @@ export class BotConfigComponent implements OnInit {
 
   gotoTopicStepConfig(breadCrumb: String){
     console.log("Navigate to: " + breadCrumb);
+    window.scroll(0,0);
     if (breadCrumb === "Create Topic"){
       this.smartChatModel.currentBot.stepConfig = 'createNewTopic';
       this.router.navigate(['./'], { relativeTo: this.route });

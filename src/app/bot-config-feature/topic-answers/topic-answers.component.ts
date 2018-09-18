@@ -48,7 +48,7 @@ export class TopicAnswersComponent implements OnInit {
       this.messageSubscription=this.smartChatModel.receiveMessage().subscribe( message =>{
         if(message=="save-bot"){
           this.updateAnswer(null);
-          this.smartChatModel.sendTopic(this.topic);
+          this.smartChatModel.sendTopic(this.topic, message);
         }
       });
     }
@@ -95,25 +95,26 @@ export class TopicAnswersComponent implements OnInit {
   submitResponse(answer: Response){
     this.updateAnswer(answer);
     this.smartChatModel.currentBot.stepConfig='createNewTopic';
-    this.smartChatModel.sendTopic(this.topic);
+    this.smartChatModel.sendTopic(this.topic, "save-bot");
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   updateAnswer(answer: Response){
     if(!answer){
-      if(this.responseType=="text"){
+      if(this.responseType=="text" && this.textComponent){
         answer=this.textComponent.getAnswer();
       }
-      else if(this.responseType=="button"){
+      else if(this.responseType=="button" && this.buttonComponent){
         answer=this.buttonComponent.getAnswer();
       }
-      else if(this.responseType=="media"){
+      else if(this.responseType=="media" && this.mediaComponent){
         answer=this.mediaComponent.getAnswer();
       }
-      else if(this.responseType=="generic"){
+      else if(this.responseType=="generic" && this.genericComponent){
         answer=this.genericComponent.getAnswer();
       }
     }
     this.topic.answers[0]=answer;
+    this.smartChatModel.sendTopic(this.topic, "update-bot");
   }
 }

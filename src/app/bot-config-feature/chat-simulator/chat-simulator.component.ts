@@ -30,15 +30,15 @@ export class ChatSimulatorComponent implements OnInit{
 
   updateTopicList(){
     this.conversationList=[];
-    let chatSetUser: [number, string];
-    let chatSetBot: [number, string];
+    let chatSetUser: [String, String];
+    let chatSetBot: [Response, String];
     for (let i in this.topicList) {
      let topic = this.topicList[i];
      let response = _.get(topic, "answers[0]", {});
-     let userQuestion = _.get(topic, "questions[0]", "[Please Select Topic Questions]");
-     let chatBotAnswer = _.get(topic, "answers[0].attachment.type", this.getResponseType(response));
-     chatSetUser = [0, userQuestion];
-     chatSetBot = [1, chatBotAnswer];
+     let userQuestion = (_.isArray(topic.questions) && topic.questions.length) ? topic.questions[topic.questions.length - 1] : '...';
+     let responseType = this.getResponseType(response);
+     chatSetUser = [userQuestion, "user"];
+     chatSetBot = [response, responseType];
      this.conversationList.push(chatSetUser);
      this.conversationList.push(chatSetBot);
    }
@@ -46,15 +46,18 @@ export class ChatSimulatorComponent implements OnInit{
 
   getResponseType(response: Response){
     //figure out the current response type
-    let responseType='[Please Select Topic Response]';
+
+    let responseType='';
+
     if(_.get(response,"text")){
-      responseType='text';
+      responseType="text";
     }
     if(_.get(response,"attachment.type",'') == "template"){
-      responseType=response.attachment.payload.template_type;
+      let template=response.attachment.payload.template_type;
+      responseType=template;
     }
     else if(_.get(response,"attachment.type",'')!=""){
-      responseType="media";
+      responseType=response.attachment.type;
     }
     return responseType;
   }

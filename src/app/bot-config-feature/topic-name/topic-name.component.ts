@@ -22,7 +22,7 @@ export class TopicNameComponent implements OnInit {
     private router: Router) {
       this.messageSubscription=this.smartChatModel.receiveMessage().subscribe( message =>{
         if(message=="save-bot"){
-          this.smartChatModel.sendTopic(this.topic);
+          this.smartChatModel.sendTopic(this.topic, message);
         }
       });
     }
@@ -50,7 +50,7 @@ export class TopicNameComponent implements OnInit {
   }
 
   gotoTopicQuestions() {
-    this.smartChatModel.sendTopic(this.topic);
+    this.smartChatModel.sendTopic(this.topic, "save-bot");
     this.smartChatModel.currentBot.stepConfig = 'editQuestions';
     this.router.navigate(['../topic-questions'], { relativeTo: this.route });
   }

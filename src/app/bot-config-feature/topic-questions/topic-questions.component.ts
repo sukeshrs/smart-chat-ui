@@ -26,7 +26,7 @@ export class TopicQuestionsComponent implements OnInit {
       });
       this.messageSubscription=this.smartChatModel.receiveMessage().subscribe( message =>{
         if(message=="save-bot"){
-          this.smartChatModel.sendTopic(this.topic);
+          this.smartChatModel.sendTopic(this.topic, message);
         }
       });
     }
@@ -58,7 +58,6 @@ export class TopicQuestionsComponent implements OnInit {
 
   public gotoTopicAnswers(){
     this.smartChatModel.currentBot.stepConfig='editAnswers';
-    this.smartChatModel.sendTopic(this.topic);
     this.router.navigate(['../topic-answers'], { relativeTo: this.route });
   }
 
@@ -68,12 +67,14 @@ export class TopicQuestionsComponent implements OnInit {
       questions.push(this.question);
       this.question = "";
       this.topic.questions = this.removeDuplicates(questions);
+      this.smartChatModel.sendTopic(this.topic, 'update-bot');
       console.log("Questions: " + JSON.stringify(questions));
     }
   }
 
   public removeQuestion(i: number) {
     this.topic.questions.splice(i,1);
+    this.smartChatModel.sendTopic(this.topic, 'update-bot');
   }
 
   private removeDuplicates(questions: String[]): String[] {

@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 })
 export class ResponseButtonTypeComponent implements OnInit {
 
-  @Output() keydownEnter= new EventEmitter<Response>();
+  @Output() buttonResponse= new EventEmitter<Response>();
   @Input() answer: Response;
   @ViewChild(ButtonsComponent) private buttonsComponent: ButtonsComponent;
   navigationSubscription;
@@ -57,7 +57,7 @@ export class ResponseButtonTypeComponent implements OnInit {
 
   submitAnswer(){
     this.answer.attachment.payload.buttons=this.buttonsComponent.getButtons();
-    this.keydownEnter.emit(this.answer);
+    this.buttonResponse.emit(this.answer);
   }
 
   getAnswer(){

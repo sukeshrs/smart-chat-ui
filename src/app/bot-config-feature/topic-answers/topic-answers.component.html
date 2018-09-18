@@ -3,24 +3,25 @@
   <div class="inside_box shadow_box">
     <div class="form_control clearfix response_options">
       <label>Response Type</label>
-      <select class="round_field" [(ngModel)]="responseType">
+      <select (change)="updateAnswer()" class="round_field" [(ngModel)]="responseType">
         <option value="">Please Select</option>
         <option value="text">Text</option>
         <option value="generic">Generic</option>
         <option value="media">Media</option>
         <option value="button">Button</option>
       </select>
-      <button (click)="submitResponse($event)" class="arrow"><img src="assets/images/arrow-right.png"></button>
-
+      <div class="btn_block">
+        <a class="btn-primary" (click)="submitResponse()">Save Changes</a>
+      </div>
     </div>
     <div *ngIf="responseType=='text'">
-      <response-text-type (keydownEnter)="submitResponse($event)" [answer]="response"></response-text-type>
+      <response-text-type (textResponse)="updateAnswer($event)" [answer]="response"></response-text-type>
     </div>
     <div *ngIf="responseType==='button'">
-      <response-button-type (keydownEnter)="submitResponse($event)" [answer]="response"></response-button-type>
+      <response-button-type (buttonResponse)="updateAnswer($event)" [answer]="response"></response-button-type>
     </div>
     <div *ngIf="responseType==='media'">
-      <response-media-type  (keydownEnter)="submitResponse($event)" [answer]="response"></response-media-type>
+      <response-media-type  (keydownEnter)="updateAnswer($event)" [answer]="response"></response-media-type>
     </div>
     <div *ngIf="responseType==='generic'">
       <response-generic-type [answer]="response"></response-generic-type>

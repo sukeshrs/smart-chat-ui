@@ -9,18 +9,19 @@
     </div>
   </div>
 
-    <div class="chat_scroll">
+  <div class="chat_scroll">
     <div *ngFor="let chatSet of conversationList">
-      <div [className]="chatSet[0] === 1 ? 'box sb_left' : 'box sb_right'">{{chatSet[1]}}</div>
+      <div *ngIf="chatSet[1] === 'user'" class='box sb_right'>{{chatSet[0]}}</div>
 
+      <div *ngIf="chatSet[1] === 'text' && chatSet[0]?.text" class="box sb_left">{{chatSet[0]?.text}}</div>
       <!-- Template style for the button template -->
-      <div class="button-container" style="display: none">
-        <div class="button-text">What kind of cofee</div>
+      <div *ngIf="chatSet[1]=='button'" class="button-container">
+        <div class="button-text">{{chatSet[0]?.attachment?.payload?.text}}</div>
         <div class="button-template">
-        <li><span class="button_item">Latte</span></li>
-        <li><span class="button_item">black</span></li>
-        <li><span class="button_item">pumkin spice</span></li>
-      </div>
+          <li *ngFor="let button of chatSet[0]?.attachment?.payload?.buttons" >
+            <span class="button_item">{{button?.title}}</span>
+          </li>
+        </div>
       </div>
     </div>
   </div>
