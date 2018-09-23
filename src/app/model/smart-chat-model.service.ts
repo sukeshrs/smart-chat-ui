@@ -28,6 +28,12 @@ export class SmartChatModel {
     this.currentTopic=this.sessionData.get("currentTopic");
   }
 
+  removeSessionData() {
+    this.sessionData.remove('botConfigList');
+    this.sessionData.remove('currentBot');
+    this.sessionData.remove('currentTopic');
+  }
+
   sendTopic(topic: Topic, action: string) {
       this.topicSubject.next({topic: topic, action: action});
   }
