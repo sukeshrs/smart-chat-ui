@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {SESSION_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import { Topic } from '../../model/topic.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SmartChatModel } from "../../model/smart-chat-model.service";
