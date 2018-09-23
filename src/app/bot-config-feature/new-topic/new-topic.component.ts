@@ -24,7 +24,7 @@ export class NewTopicComponent implements OnInit {
     var topic: Topic = {
       name: topicName
     };
-    this.smartChatModel.sendTopic(topic);
+    this.smartChatModel.sendTopic(topic,'save-bot');
   }
 
   public createNewTopic(){

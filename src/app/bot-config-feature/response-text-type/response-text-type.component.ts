@@ -9,7 +9,7 @@ import { Response } from '../../model/response.model';
 })
 export class ResponseTextTypeComponent implements OnInit {
 
-  @Output() keydownEnter= new EventEmitter<Response>();
+  @Output() textResponse= new EventEmitter<Response>();
   @Input() answer: Response;
   constructor() { }
 
@@ -21,7 +21,9 @@ export class ResponseTextTypeComponent implements OnInit {
   }
 
   submitAnswer(){
-    this.keydownEnter.emit(this.answer);
+    if(this.answer.text != ""){
+      this.textResponse.emit(this.answer);
+    }
   }
 
   getAnswer(){

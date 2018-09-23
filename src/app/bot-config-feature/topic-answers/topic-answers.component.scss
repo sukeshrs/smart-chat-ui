@@ -1,3 +1,40 @@
+/* Primary Btn */
+.btn-primary{
+	color: #23bdf0;
+	border:2px solid #23bdf0;
+	border-radius: 6px;
+	padding:10px 15px;
+	display: block;
+	background: none;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+	transition: all ease 0.3s;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.btn_block {
+	float:left;
+  max-width: 12em;
+  margin-left: 2em;
+	a{
+		&.btn-primary {
+			color: #23bdf0;
+
+		}
+		&:hover {
+			cursor: pointer;
+      color: #2e9cca;
+      border: 2px solid #2e9cca;
+		}
+    &:active {
+      background-color: #2e9cca;
+      color: white;
+    }
+	}
+}
+
 ::ng-deep .form_control {
   margin-bottom: 0;
   label{

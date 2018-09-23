@@ -1,0 +1,85 @@
+<h2 class="section_heading">Live Chat</h2>
+<div class="shadow_box">
+  <div class="chat_header">
+    <div class="chat_logo">
+      <img _ngcontent-c1="" class="likeordislike" src="assets/images/logo.png">
+      <span class="chat_bot_name">
+        Chat bot name
+      </span>
+    </div>
+  </div>
+
+  <div class="chat_scroll">
+    <div *ngFor="let chatSet of conversationList">
+      <div *ngIf="chatSet[1] === 'user'" class='box sb_right'>{{chatSet[0]}}</div>
+
+      <div *ngIf="chatSet[1] === 'text' && chatSet[0]?.text" class="box sb_left">{{chatSet[0]?.text}}</div>
+      <!-- Template style for the button template -->
+      <div *ngIf="chatSet[1]=='button'" class="button-container">
+        <div class="button-text">{{chatSet[0]?.attachment?.payload?.text}}</div>
+        <div class="button-template" *ngIf="chatSet[0]?.attachment?.payload?.buttons.length>0">
+          <li *ngFor="let button of chatSet[0]?.attachment?.payload?.buttons" >
+            <span class="button_item">{{button?.title}}</span>
+          </li>
+        </div>
+      </div>
+      <div id="demo" class="carousel slide" data-ride="carousel" style="display:none">
+
+          <!-- Indicators -->
+          <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+          </ul>
+          
+          <!-- The slideshow -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="assets/images/1.jpg" alt="Los Angeles" width="1100" height="500">
+              <div class="button-template">
+                <li><span class="button_item">1</span>
+                </li>
+                <li> <span class="button_item">2</span>
+                </li>
+                <li> <span class="button_item">3</span>
+                </li>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="assets/images/2.jpg" alt="Chicago">
+              <div class="button-template">
+                  <li><span class="button_item">4</span>
+                  </li>
+                  <li> <span class="button_item">534</span>
+                  </li>
+                  <li> <span class="button_item">6</span>
+                  </li>
+                </div>
+            </div>
+            <div class="carousel-item">
+              <img src="assets/images/Eye.jpg" alt="New York">
+              <div class="button-template">
+                  <li><span class="button_item">7</span>
+                  </li>
+                  <li> <span class="button_item">8</span>
+                  </li>
+                  <li> <span class="button_item">9</span>
+                  </li>
+                </div>
+            </div>
+          </div>
+          
+          <!-- Left and right controls -->
+          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+    </div>
+  </div>
+  <div class="chat_footer">
+    Type Your question <input type="text" class="chat_input" disabled>
+  </div>
+</div>

@@ -21,12 +21,8 @@
       <breadcrumbs (clickBreadCrumb)="gotoTopicStepConfig($event)"></breadcrumbs>
       <router-outlet></router-outlet>
     </div>
-
     <div class="col-sm-12 col-md-4 live_chat">
-      <h2 class="section_heading">Live Chat</h2>
-      <div class="inside_box shadow_box">
-        <img src="assets/images/chat_simulator.png">
-      </div>
+      <chat-simulator [topicList]="topicConversationList"></chat-simulator>
     </div>
   </div>
 

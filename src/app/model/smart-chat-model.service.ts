@@ -16,11 +16,11 @@ export class SmartChatModel {
   publishLoading : boolean;
 
   constructor() { }
-  private topicSubject = new Subject<Topic>();
+  private topicSubject = new Subject<any>();
   private messageSubject = new Subject<string>();
 
-  sendTopic(topic: Topic) {
-      this.topicSubject.next(topic);
+  sendTopic(topic: Topic, action: string) {
+      this.topicSubject.next({topic: topic, action: action});
   }
 
   receiveTopic(): Observable<any>{

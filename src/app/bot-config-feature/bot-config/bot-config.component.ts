@@ -15,6 +15,7 @@ export class BotConfigComponent implements OnInit {
 
   botConfig: BotConfigRepository;
   topicList: Topic[];
+  topicConversationList: Topic[];
   topicBoxesMin: boolean[] = [];
   topicSectionMin=false;
   topicSubscription;
@@ -27,9 +28,12 @@ export class BotConfigComponent implements OnInit {
 
   ngOnInit() {
     //Listener for topic from router outlet
-    this.topicSubscription=this.smartChatModel.receiveTopic().subscribe(topic => {
-      console.log("Router Outlet Topic : " + JSON.stringify(topic));
-      this.updateTopicList(topic);
+    this.topicSubscription=this.smartChatModel.receiveTopic().subscribe( data => {
+      console.log("Router Outlet Topic : " + JSON.stringify(data.topic));
+      this.updateTopicList(data.topic);
+      if(data.action == "save-bot"){
+        this.saveCurrentChanges();
+      }
     })
 
     //set topics to empty array if none found
@@ -40,6 +44,7 @@ export class BotConfigComponent implements OnInit {
     //retrieve current bot and topics
     this.botConfig = this.smartChatModel.currentBot;
     this.topicList = this.smartChatModel.currentBot.value.topics;
+    this.topicConversationList = _.clone(this.topicList);
     console.log("Configuring Bot: " + JSON.stringify(this.botConfig));
   }
 
@@ -60,12 +65,16 @@ export class BotConfigComponent implements OnInit {
       this.topicList.push(topic);
       this.topicBoxesMin.push(false);
     }
-    this.saveCurrentChanges();
+    this.topicConversationList = _.clone(this.topicList);
   }
 
   removeTopic(i){
-    this.topicList.splice(i, 1);
+    let removedTopic=this.topicList.splice(i, 1)[0];
+    this.topicConversationList = _.clone(this.topicList);
     this.saveCurrentChanges();
+    if(removedTopic.name==this.smartChatModel.currentTopic.name){
+      this.gotoTopicStepConfig("Create Topic")
+    }
   }
 
   saveCurrentChanges(){
@@ -91,6 +100,7 @@ export class BotConfigComponent implements OnInit {
     }
     dupTopic.name=nameList.join("_");
     this.updateTopicList(dupTopic);
+    this.saveCurrentChanges();
   }
 
   toggleTopicPopup(i){
@@ -117,6 +127,7 @@ export class BotConfigComponent implements OnInit {
 
   gotoTopicStepConfig(breadCrumb: String){
     console.log("Navigate to: " + breadCrumb);
+    window.scroll(0,0);
     if (breadCrumb === "Create Topic"){
       this.smartChatModel.currentBot.stepConfig = 'createNewTopic';
       this.router.navigate(['./'], { relativeTo: this.route });
