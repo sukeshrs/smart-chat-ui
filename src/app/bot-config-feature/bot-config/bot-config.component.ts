@@ -32,9 +32,14 @@ export class BotConfigComponent implements OnInit {
       console.log("Router Outlet Topic : " + JSON.stringify(data.topic));
       this.updateTopicList(data.topic);
       if(data.action == "save-bot"){
+        this.smartChatModel.storeSessionData("currentTopic", data.topic);
         this.saveCurrentChanges();
       }
     })
+
+    if(!this.smartChatModel.currentBot){
+      this.smartChatModel.retrieveSessionData();
+    }
 
     //set topics to empty array if none found
     if (!_.get(this.smartChatModel.currentBot,"value.topics")){
@@ -45,6 +50,8 @@ export class BotConfigComponent implements OnInit {
     this.botConfig = this.smartChatModel.currentBot;
     this.topicList = this.smartChatModel.currentBot.value.topics;
     this.topicConversationList = _.clone(this.topicList);
+
+    this.smartChatModel.storeSessionData("currentBot", this.botConfig);
     console.log("Configuring Bot: " + JSON.stringify(this.botConfig));
   }
 
@@ -78,6 +85,7 @@ export class BotConfigComponent implements OnInit {
   }
 
   saveCurrentChanges(){
+    this.smartChatModel.storeSessionData("currentBot", this.botConfig);
     this.botConfigService.updateBotConfig(this.botConfig).subscribe(
       data => {
         console.log("Updated Bot: " + JSON.stringify(data));
