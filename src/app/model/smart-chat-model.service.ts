@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
+import {SESSION_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import { BotConfigRepository } from "./bot-config-repository.model";
 import { Topic } from './topic.model';
 import { Button } from './topic/button.model';
@@ -11,13 +12,21 @@ export class SmartChatModel {
   botConfigList: BotConfigRepository[];
   currentBot: BotConfigRepository;
   currentTopic: Topic;
-  currentButtons: Button[];
-  currentElements: Element[];
   publishLoading : boolean;
 
-  constructor() { }
+  constructor(@Inject(SESSION_STORAGE) private sessionData: WebStorageService) { }
   private topicSubject = new Subject<any>();
   private messageSubject = new Subject<string>();
+
+  storeSessionData(key:string, val:any) {
+    this.sessionData.set(key, val);
+  }
+
+  retrieveSessionData() {
+    this.botConfigList=this.sessionData.get("botConfigList");
+    this.currentBot=this.sessionData.get("currentBot");
+    this.currentTopic=this.sessionData.get("currentTopic");
+  }
 
   sendTopic(topic: Topic, action: string) {
       this.topicSubject.next({topic: topic, action: action});

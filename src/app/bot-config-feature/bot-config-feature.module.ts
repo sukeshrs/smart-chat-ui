@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StorageServiceModule} from 'angular-webstorage-service';
 import { BotConfigComponent } from './bot-config/bot-config.component';
 import { TopicQuestionsComponent } from './topic-questions/topic-questions.component';
 import { NewTopicComponent } from './new-topic/new-topic.component';
@@ -50,7 +51,8 @@ import { ChatSimulatorComponent } from './chat-simulator/chat-simulator.componen
     FormsModule,
     BotConfigRoutingModule,
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StorageServiceModule
   ],
   providers: [
     BotConfigService

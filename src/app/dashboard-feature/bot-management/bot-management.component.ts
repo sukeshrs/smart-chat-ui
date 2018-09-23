@@ -79,10 +79,10 @@ export class BotManagementComponent implements OnInit {
     this.dashboardService.startBotCreation(botConfigRepo).subscribe(
       data => {
         this.botDetails = data;
-        this.smartChatModel.currentBot = this.botDetails;
-        let jsonValue =  this.smartChatModel.currentBot.value;
+        let jsonValue =  this.botDetails.value;
         let jsonString = JSON.stringify(jsonValue);
-        this.smartChatModel.currentBot.value = JSON.parse(JSON.parse(jsonString));
+        this.botDetails.value=JSON.parse(JSON.parse(jsonString));
+        this.smartChatModel.currentBot=this.botDetails;
         this.router.navigate(['/bot-config', this.name.botName]);
       },
       error => console.log("ERROR ::" + error)

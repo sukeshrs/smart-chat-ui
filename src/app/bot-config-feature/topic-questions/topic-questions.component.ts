@@ -47,7 +47,13 @@ export class TopicQuestionsComponent implements OnInit {
   //set all the variables
   initilizeInvites() {
     window.scroll(0,0);
+    //if page refreshed
+    if(!this.smartChatModel.currentTopic){
+      this.smartChatModel.retrieveSessionData();
+    }
     this.topic = this.smartChatModel.currentTopic;
+    this.smartChatModel.storeSessionData("currentTopic", this.topic);
+
     if (!this.topic.questions) {
       this.topic.questions = [];
     }
