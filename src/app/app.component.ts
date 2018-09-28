@@ -13,8 +13,8 @@ export class AppComponent{
   constructor(private smartChatModel : SmartChatModel ){
   }
 
-  @HostListener('window:beforeunload', [ '$event' ])
-  beforeUnloadHander(event) {
-    this.smartChatModel.removeSessionData();
-  }
+  // @HostListener('window:beforeunload', [ '$event' ])
+  // beforeUnloadHander(event) {
+  //   this.smartChatModel.removeSessionData();
+  // }
 }
