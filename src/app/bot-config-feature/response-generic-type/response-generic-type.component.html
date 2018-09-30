@@ -25,17 +25,17 @@
             <div class="input_fields row">
               <div class="form_control clearfix col-md-6 col-sm-12">
                   <label>Image URL</label>
-                  <input [(ngModel)]="element.image_url" type="text" class="round_field" placeholder="URL">
+                  <input (input)="submitAnswer()" [(ngModel)]="element.image_url" type="text" class="round_field" placeholder="URL">
               </div>
               <div class="form_control clearfix col-md-6 col-sm-12">
                   <label>Title</label>
-                  <input [(ngModel)]="element.title" type="text" class="round_field" placeholder="Title">
+                  <input (input)="submitAnswer()" [(ngModel)]="element.title" type="text" class="round_field" placeholder="Title">
               </div>
             </div>
           <div class="input_fields row">
             <div class="form_control clearfix col-md-6 col-sm-12">
                 <label>Subtitle</label>
-                <input [(ngModel)]="element.subtitle" type="text" class="round_field" placeholder="Subtitle">
+                <input (input)="submitAnswer()" [(ngModel)]="element.subtitle" type="text" class="round_field" placeholder="Subtitle">
             </div>
           </div>
         </div>
