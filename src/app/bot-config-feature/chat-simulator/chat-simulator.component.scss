@@ -29,7 +29,6 @@
         height: 0px;
         position: absolute;
         border-left: 5px solid #23bdf0;
-        ;
         border-right: 5px solid transparent;
         border-top: 5px solid #23bdf0;
         border-bottom: 5px solid transparent;
@@ -182,7 +181,6 @@
 .button-template {
     max-width: 16em;
     margin-bottom: 1em;
-    margin-left:1em;
     border: 1px solid #23bdf0;
     border-radius: 10px;
     text-align: center;
@@ -211,13 +209,21 @@
 }
 
 .carousel {
-    height : 15em;
+    height : 16em;
     width:10em;
     margin-left : 1em;
     .carousel-item {
+        .image-container {
+            border-radius: 10px;
         img {
             height : 10em;
             width:10em;
         }
+
+     }
     }
+}
+
+.element-text {
+    border: 1px solid #23bdf0;
 }
