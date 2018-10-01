@@ -23,7 +23,6 @@
           </li>
         </div>
       </div>
-
       <div *ngIf="chatSet[1]=='generic'" id="carousel_{{i}}" class="carousel slide" data-ride="carousel">
 
           <!-- Indicators -->
@@ -35,9 +34,9 @@
 
           <!-- The slideshow -->
           <div class="carousel-inner">
-            <div *ngFor="let element of chatSet[0]?.attachment?.payload?.elements" class="carousel-item active">
-              <img [src]="element.image_url" alt="Los Angeles" width="1100" height="500">
-              <div class="button-template">
+            <div *ngFor="let element of chatSet[0]?.attachment?.payload?.elements; let i = index" class="carousel-item active" [class.active]="i===0">
+              <img [src]="element.image_url" (error)="updateErrorImage($event)">
+              <div class="button-template element-buttons">
                 <li *ngFor="let button of element.buttons">
                   <span class="button_item">{{button.title}}</span>
                 </li>
