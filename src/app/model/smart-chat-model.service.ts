@@ -25,7 +25,10 @@ export class SmartChatModel {
   retrieveSessionData() {
     this.botConfigList=this.sessionData.get("botConfigList");
     this.currentBot=this.sessionData.get("currentBot");
-    this.currentTopic=this.sessionData.get("currentTopic");
+    let curTopic =this.sessionData.get("currentTopic");
+    this.currentTopic = this.currentBot.value.topics.find( topic =>{
+      return topic.name === curTopic.name;
+    })
   }
 
   removeSessionData() {

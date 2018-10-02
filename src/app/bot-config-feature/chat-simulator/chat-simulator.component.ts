@@ -61,4 +61,8 @@ export class ChatSimulatorComponent implements OnInit{
     }
     return responseType;
   }
+
+  updateErrorImage(event){
+   event.target.src = "assets/images/default.png";
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Input } from '@angular/core';
+import { Input, Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Response } from '../../model/response.model';
 import { Element } from '../../model/topic/element.model';
@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 export class ResponseGenericTypeComponent implements OnInit {
 
   navigationSubscription;
+  @Output() genericResponse= new EventEmitter<Response>();
   @Input() answer: Response;
   currentElement: number;
   isCarousel: boolean;
@@ -99,6 +100,10 @@ export class ResponseGenericTypeComponent implements OnInit {
 
   prevElement(){
     this.currentElement-=1;
+  }
+
+  submitAnswer(){
+    this.genericResponse.emit(this.answer);
   }
 
 }

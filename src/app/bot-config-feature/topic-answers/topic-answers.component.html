@@ -24,7 +24,7 @@
       <response-media-type  (keydownEnter)="updateAnswer($event)" [answer]="response"></response-media-type>
     </div>
     <div *ngIf="responseType==='generic'">
-      <response-generic-type [answer]="response"></response-generic-type>
+      <response-generic-type (genericResponse)="updateAnswer($event)" [answer]="response"></response-generic-type>
     </div>
   </div>
 </div>

@@ -10,7 +10,7 @@
   </div>
 
   <div class="chat_scroll">
-    <div *ngFor="let chatSet of conversationList">
+    <div *ngFor="let chatSet of conversationList; let i = index">
       <div *ngIf="chatSet[1] === 'user'" class='box sb_right'>{{chatSet[0]}}</div>
 
       <div *ngIf="chatSet[1] === 'text' && chatSet[0]?.text" class="box sb_left">{{chatSet[0]?.text}}</div>
@@ -23,62 +23,36 @@
           </li>
         </div>
       </div>
-      <div id="demo" class="carousel slide" data-ride="carousel" style="display:none">
+      <div *ngIf="chatSet[1]=='generic'" id="carousel_{{i}}" class="carousel slide" data-ride="carousel">
 
           <!-- Indicators -->
-          <ul class="carousel-indicators">
+          <!-- <ul class="carousel-indicators">
             <li data-target="#demo" data-slide-to="0" class="active"></li>
             <li data-target="#demo" data-slide-to="1"></li>
             <li data-target="#demo" data-slide-to="2"></li>
-          </ul>
-          
+          </ul> -->
+
           <!-- The slideshow -->
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="image-container">
-              <img src="assets/images/1.jpg" alt="Los Angeles" width="1100" height="500">
-             </div>
-              <div class="button-template">
-                <li><span class="button_item">1</span>
-                </li>
-                <li> <span class="button_item">2</span>
-                </li>
-                <li> <span class="button_item">3</span>
+            <div *ngFor="let element of chatSet[0]?.attachment?.payload?.elements; let i = index" class="carousel-item active" [class.active]="i===0">
+              <img [src]="element.image_url" (error)="updateErrorImage($event)">
+              <div class="button-template element-buttons">
+                <li *ngFor="let button of element.buttons">
+                  <span class="button_item">{{button.title}}</span>
                 </li>
               </div>
             </div>
-            <div class="carousel-item">
-              <img src="assets/images/2.jpg" alt="Chicago">
-              <div class="button-template">
-                  <li><span class="button_item">4</span>
-                  </li>
-                  <li> <span class="button_item">534</span>
-                  </li>
-                  <li> <span class="button_item">6</span>
-                  </li>
-                </div>
-            </div>
-            <div class="carousel-item">
-              <img src="assets/images/Eye.jpg" alt="New York">
-              <div class="button-template">
-                  <li><span class="button_item">7</span>
-                  </li>
-                  <li> <span class="button_item">8</span>
-                  </li>
-                  <li> <span class="button_item">9</span>
-                  </li>
-                </div>
-            </div>
           </div>
-          
+
           <!-- Left and right controls -->
-          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <a class="carousel-control-prev" href="#carousel_{{i}}" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
           </a>
-          <a class="carousel-control-next" href="#demo" data-slide="next">
+          <a class="carousel-control-next" href="#carousel_{{i}}" data-slide="next">
             <span class="carousel-control-next-icon"></span>
           </a>
         </div>
+
     </div>
   </div>
   <div class="chat_footer">
