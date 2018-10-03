@@ -18,44 +18,50 @@
       <div *ngIf="chatSet[1]=='button'" class="button-container">
         <div class="button-text">{{chatSet[0]?.attachment?.payload?.text}}</div>
         <div class="button-template" *ngIf="chatSet[0]?.attachment?.payload?.buttons.length>0">
-          <li *ngFor="let button of chatSet[0]?.attachment?.payload?.buttons" >
+          <li *ngFor="let button of chatSet[0]?.attachment?.payload?.buttons">
             <span class="button_item">{{button?.title}}</span>
           </li>
         </div>
       </div>
       <div *ngIf="chatSet[1]=='generic'" id="carousel_{{i}}" class="carousel slide" data-ride="carousel">
 
-          <!-- Indicators -->
-          <!-- <ul class="carousel-indicators">
+        <!-- Indicators -->
+        <!-- <ul class="carousel-indicators">
             <li data-target="#demo" data-slide-to="0" class="active"></li>
             <li data-target="#demo" data-slide-to="1"></li>
             <li data-target="#demo" data-slide-to="2"></li>
           </ul> -->
 
-          <!-- The slideshow -->
-          <div class="carousel-inner">
-            <div *ngFor="let element of chatSet[0]?.attachment?.payload?.elements; let i = index" class="carousel-item active" [class.active]="i===0">
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+          <div *ngFor="let element of chatSet[0]?.attachment?.payload?.elements; let i = index" class="carousel-item active" [class.active]="i===0">
+
+            <div class="image-container">
               <img [src]="element.image_url" (error)="updateErrorImage($event)">
-              <div class="button-template element-buttons">
-                <li *ngFor="let button of element.buttons">
-                  <span class="button_item">{{button.title}}</span>
-                </li>
-              </div>
+              <div class="carousal-title">{{element?.title}}</div>
+              <div class="carousal-sub-title">{{element?.subtitle}}</div>
+            </div>
+            <div class="button-template element-buttons">
+              <li *ngFor="let button of element.buttons">
+                <span class="button_item">{{button.title}}</span>
+              </li>
             </div>
           </div>
-
-          <!-- Left and right controls -->
-          <a class="carousel-control-prev" href="#carousel_{{i}}" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </a>
-          <a class="carousel-control-next" href="#carousel_{{i}}" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </a>
         </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#carousel_{{i}}" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#carousel_{{i}}" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
 
     </div>
   </div>
   <div class="chat_footer">
-    Type Your question <input type="text" class="chat_input" disabled>
+    Type Your question
+    <input type="text" class="chat_input" disabled>
   </div>
 </div>
