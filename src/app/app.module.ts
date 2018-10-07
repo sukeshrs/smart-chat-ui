@@ -9,11 +9,13 @@ import { DashboardFeatureModule } from './dashboard-feature/dashboard-feature.mo
 import { BotConfigFeatureModule } from './bot-config-feature/bot-config-feature.module';
 import { DraggableModule } from './draggable/draggable.module';
 import { SmartChatModel } from './model/smart-chat-model.service';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    LandingComponent
   ],
   imports: [
     CommonModule,
